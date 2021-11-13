@@ -90,7 +90,7 @@ class Triggers(commands.Cog):
 
             words[idx] = word + "os"
 
-        text = " ".implode(words) + ", šak povedz ty, ne"
+        text = ' '.join(words) + ", šak povedz ty, ne"
         return text
 
     @tasks.loop(seconds=30.0)
