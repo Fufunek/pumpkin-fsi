@@ -79,7 +79,7 @@ class FSI(commands.Cog):
                 continue
 
             if word.lower() == "jako":
-                words[idx] = "jakooou"
+                words[idx] = word + "oou"
                 continue
 
             if not word[-1].isalpha():
