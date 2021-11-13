@@ -7,7 +7,7 @@ from discord.ext import commands, tasks
 
 from core import check, i18n, logger, utils
 
-_ = i18n.Translator("modules/meme").translate
+_ = i18n.Translator("modules/fsi").translate
 guild_log = logger.Guild.logger()
 
 FISH_REGEX = r"^je [cč]erstv[aá]"
@@ -15,7 +15,7 @@ UH_OH_REGEX = r"^uh oh"
 HUG_REGEX = r"<:peepoHug:897172785250594816>"
 
 
-class Triggers(commands.Cog):
+class FSI(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.fish_cache = 0
@@ -68,6 +68,7 @@ class Triggers(commands.Cog):
         await message.channel.send("<:peepoHug:897172785250594816>")
 
     def _slovakize(self, text: str) -> str:
+        text = text.replace(".", "").replace("?", "").replace("!", "").replace(",", "")
         words = text.split()
 
         for idx, word in enumerate(words):
@@ -90,7 +91,7 @@ class Triggers(commands.Cog):
 
             words[idx] = word + "os"
 
-        text = ' '.join(words) + ", šak povedz ty, ne"
+        text = " ".join(words) + " šak povedz ty ne"
         return text
 
     @tasks.loop(seconds=30.0)
@@ -100,4 +101,4 @@ class Triggers(commands.Cog):
 
 
 def setup(bot) -> None:
-    bot.add_cog(Triggers(bot))
+    bot.add_cog(FSI(bot))
