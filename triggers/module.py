@@ -21,6 +21,21 @@ class Triggers(commands.Cog):
         self.fish_cache = 0
         self.cleanup.start()
 
+    @commands.command(aliases=["divocak", "jako"])
+    async def slovakize(self, ctx, *, message: str = None):
+        """Slovakize message"""
+        if message is None:
+            text = "Moc kratky text brasko!"
+        else:
+            text = utils.Text.sanitise(
+                self._slovakize(message), limit=1900, escape=False
+            )
+        await ctx.send(
+            f"**{utils.Text.sanitise(ctx.author.display_name)}**\n>>> " + text
+        )
+
+        await utils.Discord.delete_message(ctx.message)
+
     @commands.Cog.listener()
     async def on_message(self, message):
         """User interactions"""
@@ -34,6 +49,8 @@ class Triggers(commands.Cog):
             await self._uhoh_reaction(message)
         elif re.match(HUG_REGEX, message.content, flags=re.IGNORECASE):
             await self._hug_reaction(message)
+
+    # HELPER FUNCTIONS
 
     async def _fish_reaction(self, message):
         if self.fish_cache < 4:
@@ -49,6 +66,32 @@ class Triggers(commands.Cog):
         if message.author.bot:
             return
         await message.channel.send("<:peepoHug:897172785250594816>")
+
+    def _slovakize(text: str) -> str:
+        words = text.split()
+
+        for idx, word in enumerate(words):
+            if len(word) < 3:
+                continue
+
+            if word == "som":
+                continue
+
+            if not word[-1].isalpha():
+                continue
+            if word[-1] == "e":
+                continue
+            elif word[-1] == "o":
+                words[idx] = word + "s"
+                continue
+            elif word[-1] in ["a", "i", "u", "y"]:
+                words[idx] = word[:-1] + "os"
+                continue
+
+            words[idx] = word + "os"
+
+        text = " ".implode(words) + ", šak povedz ty, ne"
+        return text
 
     @tasks.loop(seconds=30.0)
     async def cleanup(self):
