@@ -15,7 +15,7 @@ UH_OH_REGEX = r"^uh oh"
 HUG_REGEX = r"<:peepoHug:897172785250594816>"
 
 
-class Meme(commands.Cog):
+class Triggers(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.fish_cache = 0
@@ -57,4 +57,4 @@ class Meme(commands.Cog):
 
 
 def setup(bot) -> None:
-    bot.add_cog(Meme(bot))
+    bot.add_cog(Triggers(bot))
