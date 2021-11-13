@@ -67,7 +67,7 @@ class Triggers(commands.Cog):
             return
         await message.channel.send("<:peepoHug:897172785250594816>")
 
-    def _slovakize(text: str) -> str:
+    def _slovakize(self, text: str) -> str:
         words = text.split()
 
         for idx, word in enumerate(words):
