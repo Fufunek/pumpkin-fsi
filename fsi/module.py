@@ -75,7 +75,11 @@ class FSI(commands.Cog):
             if len(word) < 3:
                 continue
 
-            if word == "som":
+            if word.lower() in ["som", "ako"]:
+                continue
+
+            if word.lower() == "jako":
+                words[idx] = "jakooou"
                 continue
 
             if not word[-1].isalpha():
