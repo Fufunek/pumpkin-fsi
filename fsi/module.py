@@ -2,8 +2,8 @@ import json
 import re
 from typing import Dict, Optional, List
 
-import discord
-from discord.ext import commands, tasks
+import nextcord
+from nextcord.ext import commands, tasks
 
 from core import check, i18n, logger, utils
 
@@ -40,7 +40,7 @@ class FSI(commands.Cog):
     async def on_message(self, message):
         """User interactions"""
         # Ignore DMs
-        if not isinstance(message.channel, discord.TextChannel):
+        if not isinstance(message.channel, nextcord.TextChannel):
             return
 
         if re.match(FISH_REGEX, message.content, flags=re.IGNORECASE):
