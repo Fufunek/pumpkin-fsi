@@ -27,14 +27,14 @@ class FSI(commands.Cog):
         if message is None:
             text = "Moc kratky text brasko!"
         else:
-            text = utils.Text.sanitise(
+            text = utils.text.sanitise(
                 self._slovakize(message), limit=1900, escape=False
             )
         await ctx.send(
-            f"**{utils.Text.sanitise(ctx.author.display_name)}**\n>>> " + text
+            f"**{utils.text.sanitise(ctx.author.display_name)}**\n>>> " + text
         )
 
-        await utils.Discord.delete_message(ctx.message)
+        await utils.discord.delete_message(ctx.message)
 
     @commands.Cog.listener()
     async def on_message(self, message):
