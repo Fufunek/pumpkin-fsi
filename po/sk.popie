@@ -1,0 +1,74 @@
+msgid (GLOBAL)
+msgstr
+
+msgid Set tag role {role} with vote limit {limit} in channel {channel}.
+msgstr
+
+msgid User has to have this role.
+msgstr
+
+msgid Tag setting could not be created.
+msgstr
+
+msgid No entry found for this role and channel combination!
+msgstr
+
+msgid Settings for role {role} and channel {channel} were unset.
+msgstr
+
+msgid Yes
+msgstr
+
+msgid No
+msgstr
+
+msgid ID
+msgstr
+
+msgid Role
+msgstr
+
+msgid Channel
+msgstr
+
+msgid Must have same role
+msgstr
+
+msgid Vote minimum
+msgstr
+
+msgid Can't tag this role here.
+msgstr
+
+msgid You must be member of this role before you can tag them!
+msgstr
+
+msgid Vote to send tag!
+msgstr
+
+msgid Started by
+msgstr
+
+msgid Tagged role
+msgstr
+
+msgid Message
+msgstr
+
+msgid Minimal votes
+msgstr
+
+msgid Time limit
+msgstr
+
+msgid {mention}, your tag did not have enough supporters.
+msgstr
+
+msgid **{user}** tagged {role} with this message:
+msgstr
+
+msgid You have already voted!
+msgstr
+
+msgid Your vote has been casted.
+msgstr

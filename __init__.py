@@ -1,3 +1,3 @@
 __name__ = "fsi"
 __version__ = "0.0.0"
-__all__ = ("fsi",)
+__all__ = ("fsi", "tagging")

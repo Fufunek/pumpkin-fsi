@@ -1,0 +1,74 @@
+msgid (GLOBAL)
+msgstr (GLOBÁLNÍ)
+
+msgid Set tag role {role} with vote limit {limit} in channel {channel}.
+msgstr Nastavena tagovací role {role} s minimem hlasů {limit} v kanálu {kanál}
+
+msgid User has to have this role.
+msgstr Uživatel musí tuto roli mít.
+
+msgid Tag setting could not be created.
+msgstr Nastavení tagování nemohlo být vytvořeno.
+
+msgid No entry found for this role and channel combination!
+msgstr Nenalezen žádný záznam pro kombinaci této role a kanálu
+
+msgid Settings for role {role} and channel {channel} were unset.
+msgstr Nastavení pro roli {role} a kanál {channel} bylo zrušeno.
+
+msgid Yes
+msgstr Ano
+
+msgid No
+msgstr Ne
+
+msgid ID
+msgstr ID
+
+msgid Role
+msgstr Role
+
+msgid Channel
+msgstr Kanál
+
+msgid Must have same role
+msgstr Musí mít stejnou roli
+
+msgid Vote minimum
+msgstr Minimum hlasů
+
+msgid Can't tag this role here.
+msgstr Tuto roli nemůžeš označit.
+
+msgid You must be member of this role before you can tag them!
+msgstr Musíš být členem této role abys ji mohl označit!
+
+msgid Vote to send tag!
+msgstr Hlasujte o označení role!
+
+msgid Started by
+msgstr Započal
+
+msgid Tagged role
+msgstr Označená role
+
+msgid Message
+msgstr Zpráva
+
+msgid Minimal votes
+msgstr Minimum hlasů
+
+msgid Time limit
+msgstr Časový limit
+
+msgid {mention}, your tag did not have enough supporters.
+msgstr {mention}, tvé označení nedostalo dostatek hlasů.
+
+msgid **{user}** tagged {role} with this message:
+msgstr **{user}** označil roli {role} s touto zprávou:
+
+msgid You have already voted!
+msgstr Již jsi hlasoval!
+
+msgid Your vote has been casted.
+msgstr Tvůj hlas byl započítán.
