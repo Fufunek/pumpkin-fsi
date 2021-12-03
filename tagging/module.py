@@ -184,6 +184,14 @@ class Tagging(commands.Cog):
             ).format(user=ctx.author.display_name, role=role.mention, message=message),
             allowed_mentions=nextcord.AllowedMentions(roles=True),
         )
+        
+        await bot_log.debug(
+            ctx.author,
+            ctx.message.channel.id,
+            "User {user} tagged role {role} in channel {channel}".format(
+                user=ctx.author, role=role, channel=ctx.channel.name
+            ),
+        )
 
 
 class VoteView(nextcord.ui.View):
