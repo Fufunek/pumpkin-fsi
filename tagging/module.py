@@ -158,7 +158,7 @@ class Tagging(commands.Cog):
         if value is None:
             await ctx.send(
                 _(ctx, "{mention}, your tag did not have enough supporters.").format(
-                    ctx.author.mention
+                    mention=ctx.author.mention
                 )
             )
 
