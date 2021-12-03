@@ -116,7 +116,7 @@ class Tagging(commands.Cog):
 
         tag = UserTag.get_valid(ctx.guild.id, role.id, ctx.channel.id)
 
-        if tag is None:
+        if tag is None or tag.limit < 1:
             await ctx.send(_(ctx, "Can't tag this role here."))
             return
 
