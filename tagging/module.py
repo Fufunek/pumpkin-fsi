@@ -184,7 +184,7 @@ class Tagging(commands.Cog):
             ).format(user=ctx.author.display_name, role=role.mention, message=message),
             allowed_mentions=nextcord.AllowedMentions(roles=True),
         )
-        
+
         await bot_log.debug(
             ctx.author,
             ctx.message.channel.id,
