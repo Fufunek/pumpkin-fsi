@@ -111,8 +111,20 @@ class Tagging(commands.Cog):
 
     @commands.check(check.acl)
     @commands.command(name="tag")
-    async def tag(self, ctx, role: nextcord.Role, *, message: str):
+    async def tag(self, ctx, role: Union[nextcord.Role, str], *, message: str):
         await utils.discord.delete_message(ctx.message)
+
+        if isinstance(role, str):
+            role_lookup = nextcord.utils.get(ctx.guild.roles, name=role)
+            if role_lookup is None:
+                await ctx.send(
+                    _(ctx, "Role *{role}* not found!").format(
+                        role=utils.text.sanitize(role)
+                    )
+                )
+                return
+
+            role = role_lookup
 
         tag = UserTag.get_valid(ctx.guild.id, role.id, ctx.channel.id)
 

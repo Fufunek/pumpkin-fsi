@@ -37,6 +37,9 @@ msgstr Musí mít stejnou roli
 msgid Vote minimum
 msgstr Minimum hlasů
 
+msgid Role *{role}* not found!
+msgstr Role *{role}* nenalezena!
+
 msgid Can't tag this role here.
 msgstr Tuto roli nemůžeš označit.
 

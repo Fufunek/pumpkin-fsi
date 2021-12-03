@@ -37,6 +37,9 @@ msgstr
 msgid Vote minimum
 msgstr
 
+msgid Role *{role}* not found!
+msgstr
+
 msgid Can't tag this role here.
 msgstr
 
