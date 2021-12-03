@@ -181,7 +181,8 @@ class Tagging(commands.Cog):
         await ctx.send(
             (
                 _(ctx, "**{user}** tagged {role} with this message:") + "\n\n{message}"
-            ).format(user=ctx.author.display_name, role=role.mention, message=message)
+            ).format(user=ctx.author.display_name, role=role.mention, message=message),
+            allowed_mentions=nextcord.AllowedMentions(roles=True)
         )
 
 
