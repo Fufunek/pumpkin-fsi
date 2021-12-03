@@ -2,7 +2,7 @@ msgid (GLOBAL)
 msgstr (GLOBÁLNÍ)
 
 msgid Set tag role {role} with vote limit {limit} in channel {channel}.
-msgstr Nastavena tagovací role {role} s minimem hlasů {limit} v kanálu {kanál}
+msgstr Nastavena tagovací role {role} s minimem hlasů {limit} v kanálu {channel}
 
 msgid User has to have this role.
 msgstr Uživatel musí tuto roli mít.
