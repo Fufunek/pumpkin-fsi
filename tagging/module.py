@@ -7,7 +7,7 @@ from pie import check, i18n, logger, utils
 
 from .database import UserTag
 
-_ = i18n.Translator("modules/reminder").translate
+_ = i18n.Translator("modules/fsi").translate
 bot_log = logger.Bot.logger()
 guild_log = logger.Guild.logger()
 
