@@ -64,7 +64,7 @@ class Tagging(commands.Cog):
             await ctx.send(
                 _(
                     ctx, "Settings for role {role} and channel {channel} were unset."
-                ).format(channel=channel_name)
+                ).format(channel=channel_name, role=role.name)
             )
 
     @commands.check(check.acl)
