@@ -119,7 +119,7 @@ class Tagging(commands.Cog):
             if role_lookup is None:
                 await ctx.send(
                     _(ctx, "Role *{role}* not found!").format(
-                        role=utils.text.sanitize(role)
+                        role=utils.text.sanitise(role)
                     )
                 )
                 return
