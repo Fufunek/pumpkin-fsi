@@ -1,3 +1,159 @@
+msgid Item information
+msgstr Informace o položce
+
+msgid ID
+msgstr ID
+
+msgid Option ID
+msgstr Option ID
+
+msgid Name
+msgstr Název
+
+msgid Type
+msgstr Typ
+
+msgid View informations
+msgstr Informace o View
+
+msgid Unique (only one role)
+msgstr Unikátní (pouze jedna role)
+
+msgid Messages
+msgstr Zprávy
+
+msgid Allowed roles
+msgstr Povolené role
+
+msgid Disallowed roles
+msgstr Zakázané role
+
+msgid Options
+msgstr Možnosti
+
+msgid Option informations
+msgstr Informace o možnosti
+
+msgid View ID
+msgstr View ID
+
+msgid Label
+msgstr Label
+
+msgid Emoji
+msgstr Emoji
+
+msgid Description
+msgstr Popisek
+
+msgid Items
+msgstr Itemy
+
+msgid RoleButtons View created with ID {id}
+msgstr RoleButtons View vytvořen s ID {id}
+
+msgid Could not create RoleButtons View.
+msgstr Nepodařilo se vytvořit RoleButtons View
+
+msgid Unique
+msgstr Unikátní
+
+msgid View with ID {id} not found.
+msgstr View s ID {id} nenalezen.
+
+msgid Do you want to delete this view?
+msgstr Opravdu chceš smazat tento View?
+
+msgid Deleting timed out.
+msgstr Vypršel čas smazání.
+
+msgid View ID {id} deleted.
+msgstr View s ID {id} smazán.
+
+msgid Deleting aborted.
+msgstr Mazání zrušeno.
+
+msgid Option with ID {id} not found.
+msgstr Option s ID {id} nenalezena.
+
+msgid Option added with ID {id}.
+msgstr Option přidána s ID {id}.
+
+msgid Do you want to delete this option?
+msgstr Opravdu chceš smazat tuto option?
+
+msgid Option with ID {id} deleted.
+msgstr Option s ID {id} smazána.
+
+msgid Item {name} added to Option ID {id}
+msgstr Item jménem {name} přidán k Option s ID {id}
+
+msgid Item {name} in Option ID {id} not found.
+msgstr Item jménem {name} v Option s ID {id} nenalezen.
+
+msgid Do you want to delete this item?
+msgstr Opravdu chceš smazat tento item?
+
+msgid Item {name} deleted.
+msgstr Item jménem {name} smazán.
+
+msgid View with ID {id} changed to {type}
+msgstr View s ID {id} změněn na typ {type}
+
+msgid Message with ID {id} not found.
+msgstr Zpráva s ID {id} nenalezena.
+
+msgid Message author must be bot.
+msgstr Autor zprávy musí být bot.
+
+msgid View with ID {view_id} attached to message {message_id}
+msgstr View s ID {view_id} připojen ke zpráve {message_id}
+
+msgid Message with ID {id} has no RoleButtons View attached.
+msgstr Zpráva s ID {id} nemá připojený žádný RoleButtons View.
+
+msgid Message with ID {id} not found on Discord. Detached anyway.
+msgstr Zpráva s ID {id} na Discordu nenalezena. Stejně byla odpojena.
+
+msgid Message with ID {id} detached.
+msgstr Zpráva s ID {id} odpojena.
+
+msgid Select role from list
+msgstr Vyber si roli ze seznamu
+
+msgid Add
+msgstr Přidat
+
+msgid Remove
+msgstr Odebrat
+
+msgid You don't have permissions to use this Reaction Buttons
+msgstr Nemáš práva na použití těchto Reaction Buttons
+
+msgid You must select option first.
+msgstr Prvně si musíš vybrat jednu z možností.
+
+msgid Roles and channels successfuly added.
+msgstr Role a kanály úspěšně přidány.
+
+msgid Something went wrong.
+msgstr Něco se pokazilo.
+
+msgid Roles and channels successfuly removed.
+msgstr Role a kanály úspěšně odebrány.
+
+msgid You must write message as parameter or upload TXT file.
+msgstr Musíš napsat zprávu jako parametr nebo nahrát TXT soubor.
+
+msgid Message must be shorter than 2000 characters.
+msgstr Zpráva musí být kratší jak 2000 znaků.
+
+msgid Your message was sent into channel {channel}
+msgstr Tvá zpráva byla odeslána do kanálu {channel}
+
+msgid Your message {id} in channel {channel} was edited.
+msgstr Tvá zpráva s ID {id} v kanálu {channel} byla upravena.
+
 msgid (GLOBAL)
 msgstr (GLOBÁLNÍ)
 
@@ -21,9 +177,6 @@ msgstr Ano
 
 msgid No
 msgstr Ne
-
-msgid ID
-msgstr ID
 
 msgid Role
 msgstr Role
