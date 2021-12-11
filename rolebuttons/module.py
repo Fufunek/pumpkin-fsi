@@ -122,7 +122,7 @@ class RoleButtons(commands.Cog):
         embed.add_field(
             name=_(ctx, "Messages"),
             value="\n".join(
-                [f'{message.message_id}, {message.channel_id}' for message in view.messages]
+                [f'({message.message_id}, {message.channel_id})' for message in view.messages]
             )
             if view.messages
             else "-",
@@ -669,6 +669,8 @@ class RoleButtons(commands.Cog):
             )
         )
 
+    @commands.check(check.acl)
+    @rolebuttons_message_.command(name="detach")
     async def rolebuttons_message_dettach(self, ctx, message_id: int):
         """Detach View from Message.
 
