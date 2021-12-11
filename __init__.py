@@ -1,3 +1,3 @@
 __name__ = "fsi"
 __version__ = "0.0.0"
-__all__ = ("fsi", "tagging")
+__all__ = ("fsi", "tagging", "rolebuttons", "sudo")
