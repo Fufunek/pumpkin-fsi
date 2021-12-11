@@ -87,7 +87,7 @@ class RBView(database.base):
     idx = Column(Integer, primary_key=True, autoincrement=True)
     guild_id = Column(BigInteger)
     unique = Column(Boolean)
-    messages = relationship("RBMessage", cascade="all, delete")
+    messages = relationship("RBMessage", cascade="all, delete", back_populates="rbview")
     restrictions = relationship("RBRestriction", cascade="all, delete")
     options = relationship("RBOption", cascade="all, delete")
 
@@ -142,11 +142,11 @@ class RBView(database.base):
         session.commit()
 
     def remove_restriction(self, restriction):
-        self.restrictions.remove(restriction)
+        session.delete(restriction)
         session.commit()
 
     def remove_message(self, message: RBMessage):
-        self.messages.remove(message)
+        session.delete(message)
         session.commit()
 
     def add_option(self, option: RBOption):
