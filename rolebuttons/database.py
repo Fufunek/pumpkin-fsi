@@ -127,7 +127,7 @@ class RBView(database.base):
         session.commit()
 
     def remove_message(self, message: RBMessage):
-        self.messages.pop(message)
+        self.messages.remove(message)
         session.commit()
 
     def add_option(self, option: RBOption):
