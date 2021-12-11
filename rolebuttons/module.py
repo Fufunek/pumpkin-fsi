@@ -222,7 +222,7 @@ class RoleButtons(commands.Cog):
             else:
                 name = role.name
 
-            roles[role.type].append(name)
+            roles[restriction.type].append(name)
 
         return roles
 
