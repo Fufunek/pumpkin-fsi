@@ -695,7 +695,7 @@ class RoleButtons(commands.Cog):
         )
 
         view = rbmessage.rbview
-        view.remove_message(message_id)
+        view.remove_message(rbmessage)
 
         if message is None:
             ctx.reply(
