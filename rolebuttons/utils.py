@@ -65,6 +65,9 @@ class RBUtils:
             UTF-8 emoji or Discord Emoji
 
         """
+        if emoji is None:
+            return None
+
         if not emoji.isdigit():
             return emoji
 

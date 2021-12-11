@@ -122,7 +122,10 @@ class RoleButtons(commands.Cog):
         embed.add_field(
             name=_(ctx, "Messages"),
             value="\n".join(
-                [f'({message.message_id}, {message.channel_id})' for message in view.messages]
+                [
+                    f"({message.message_id}, {message.channel_id})"
+                    for message in view.messages
+                ]
             )
             if view.messages
             else "-",
@@ -404,7 +407,7 @@ class RoleButtons(commands.Cog):
         label: str,
         emoji: Optional[Union[nextcord.PartialEmoji, str]],
         *,
-        description: Optional[str] = None
+        description: Optional[str] = None,
     ):
         """Add option to View
 

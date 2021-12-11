@@ -48,7 +48,9 @@ class OptionDropdown(nextcord.ui.Select):
             option = nextcord.SelectOption(
                 label=db_option.label,
                 description=db_option.description,
-                emoji=rbutils.emoji_decode(bot, db_option.emoji),
+                emoji=rbutils.emoji_decode(bot, db_option.emoji)
+                if db_option.emoji is not None
+                else None,
                 value=db_option.idx,
             )
             options.append(option)
