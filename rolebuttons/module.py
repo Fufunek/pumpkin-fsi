@@ -267,6 +267,7 @@ class RoleButtons(commands.Cog):
         """
         self._unload_views()
         self.load_views.start()
+        await ctx.send(_(ctx, "All Views reloaded."))
 
     @commands.check(check.acl)
     @rolebuttons_.command(name="create")
@@ -624,9 +625,9 @@ class RoleButtons(commands.Cog):
         view.remove_restriction(restriction)
 
         await ctx.send(
-            _(ctx, "Restriction for role {name} removed from View with ID {id}.").format(
-                name=role_name, id=view_id
-            )
+            _(
+                ctx, "Restriction for role {name} removed from View with ID {id}."
+            ).format(name=role_name, id=view_id)
         )
 
     @commands.check(check.acl)
