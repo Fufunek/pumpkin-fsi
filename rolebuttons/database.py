@@ -176,6 +176,9 @@ class RBOption(database.base):
     def add_item(self, item: RBItem):
         self.items.append(item)
         session.commit()
+        
+    def save(self):
+        session.commit()
 
 
 class RBItem(database.base):

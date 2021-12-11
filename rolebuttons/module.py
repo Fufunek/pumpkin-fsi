@@ -435,6 +435,41 @@ class RoleButtons(commands.Cog):
         view.add_option(option)
 
         await ctx.send(_(ctx, "Option added with ID {id}.").format(id=option.idx))
+        
+    @commands.check(check.acl)
+    @rolebuttons_option_.command(name="add")
+    async def rolebuttons_option_edit(
+        self,
+        ctx,
+        option_id: int,
+        label: str,
+        emoji: Optional[Union[nextcord.PartialEmoji, str]],
+        *,
+        description: Optional[str] = None,
+    ):
+        """Edit Option's parameters
+
+        Args:
+            option_id: ID of Option.
+            label: Option's label
+            emoji: Option's emoji
+            description: Option's description
+        """
+        option = RBOption.get(ctx.guild, option_id)
+        if option is None:
+            await ctx.reply(_(ctx, "Option with ID {id} not found.").format(id=view_id))
+            return
+
+        if emoji == "" or emoji == "None":
+            emoji = None
+
+        option.label = label
+        option.description = description
+        option.emoji=rbutils.emoji_encode(self.bot, emoji) if emoji is not None else None
+
+        option.save()
+
+        await ctx.send(_(ctx, "Option with ID {id} edited.").format(id=option.idx))
 
     @commands.check(check.acl)
     @rolebuttons_option_.command(name="remove")
