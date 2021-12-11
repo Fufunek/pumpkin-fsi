@@ -418,6 +418,9 @@ class RoleButtons(commands.Cog):
         if view is None:
             await ctx.reply(_(ctx, "View with ID {id} not found.").format(id=view_id))
             return
+            
+        if emoji == "" or emoji == "None":
+            emoji = None
 
         option = RBOption(
             view_id=view_id,
