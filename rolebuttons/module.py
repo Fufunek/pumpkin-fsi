@@ -30,7 +30,7 @@ class RoleButtons(commands.Cog):
         """Unload all views. It's used in reload commands
         or when unloading / reloading module.
         """
-        for view in self.views:
+        for id, view in self.views:
             view.stop()
 
         self.views = {}
