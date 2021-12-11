@@ -135,7 +135,7 @@ class RoleButtons(commands.Cog):
         roles = await self._get_view_roles(ctx, view)
 
         allowed_roles = ", ".join(roles[RestrictionType.ALLOW])
-        disallowed_roles = ", ".join(roles[RestrictionType.ALLOW])
+        disallowed_roles = ", ".join(roles[RestrictionType.DISALLOW])
 
         embed.add_field(
             name=_(ctx, "Allowed roles"),
