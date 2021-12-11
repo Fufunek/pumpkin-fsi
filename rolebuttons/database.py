@@ -34,14 +34,15 @@ class RBMessage(database.base):
 
     __tablename__ = "fsi_rolebutton_message"
 
-    message_id = Column(BigInteger, primary_key=True, autoincrement=False)
+    message_id = Column(BigInteger)
     channel_id = Column(BigInteger)
     view_id = Column(Integer, ForeignKey("fsi_rolebutton_view.idx"))
     rbview = relationship("RBView", back_populates="messages")
 
     @staticmethod
     def get(message_id: int):
-        session.query(RBMessage).filter_by(message_id=message_id).one_or_none()
+        query = session.query(RBMessage).filter_by(message_id=message_id).one_or_none()
+        return query
 
 
 class RBRestriction(database.base):
