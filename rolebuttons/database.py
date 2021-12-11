@@ -34,9 +34,9 @@ class RBMessage(database.base):
 
     __tablename__ = "fsi_rolebutton_message"
 
-    message_id = Column(BigInteger)
+    message_id = Column(BigInteger, primary_key=True)
     channel_id = Column(BigInteger)
-    view_id = Column(Integer, ForeignKey("fsi_rolebutton_view.idx"))
+    view_id = Column(Integer, ForeignKey("fsi_rolebutton_view.idx"), primary_key=True)
     rbview = relationship("RBView", back_populates="messages")
 
     @staticmethod
