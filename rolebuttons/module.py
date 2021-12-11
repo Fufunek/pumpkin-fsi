@@ -437,7 +437,7 @@ class RoleButtons(commands.Cog):
         await ctx.send(_(ctx, "Option added with ID {id}.").format(id=option.idx))
 
     @commands.check(check.acl)
-    @rolebuttons_option_.command(name="add")
+    @rolebuttons_option_.command(name="edit")
     async def rolebuttons_option_edit(
         self,
         ctx,
