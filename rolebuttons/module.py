@@ -543,7 +543,7 @@ class RoleButtons(commands.Cog):
         option.add_item(item)
 
         await ctx.send(
-            _(ctx, "Item {name} added to Option ID {id}").format(
+            _(ctx, "Item {name} added to Option ID {id}.").format(
                 name=dc_item.name, id=option_id
             )
         )
@@ -568,7 +568,7 @@ class RoleButtons(commands.Cog):
         types = ["ALLOW", "DISALLOW"]
         if type not in types:
             await ctx.reply(
-                _(ctx, "Type must be one of these: {types}").format(", ".join(types))
+                _(ctx, "Type must be one of these: {types}.").format(", ".join(types))
             )
             return
 
@@ -582,7 +582,7 @@ class RoleButtons(commands.Cog):
         view.add_restriction(role, type)
 
         await ctx.send(
-            _(ctx, "Restriction for role {name} added to View ID {id}").format(
+            _(ctx, "Restriction for role {name} added to View ID {id}.").format(
                 name=role.name, id=view_id
             )
         )
@@ -617,14 +617,14 @@ class RoleButtons(commands.Cog):
 
         if not restriction:
             await ctx.send(
-                _(ctx, "Restriction not found in View ID {id}").format(id=view_id)
+                _(ctx, "Restriction not found in View ID {id}.").format(id=view_id)
             )
             return
 
         view.remove_restriction(restriction)
 
         await ctx.send(
-            _(ctx, "Restriction for role {name} removed from View with ID {id}").format(
+            _(ctx, "Restriction for role {name} removed from View with ID {id}.").format(
                 name=role_name, id=view_id
             )
         )
@@ -764,6 +764,10 @@ class RoleButtons(commands.Cog):
         """
         if channel_id == 0:
             channel_id = ctx.channel.id
+
+        if view_id not in self.views:
+            ctx.reply(_(ctx, "View with ID {id} not loaded.").format(id=view_id))
+            return
 
         view = self.views[view_id]
 
