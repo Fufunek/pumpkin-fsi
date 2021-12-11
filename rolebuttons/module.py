@@ -554,7 +554,7 @@ class RoleButtons(commands.Cog):
         await utils.discord.send_help(ctx)
 
     @commands.check(check.acl)
-    @rolebuttons_item_.command(name="add")
+    @rolebuttons_restriction_.command(name="add")
     async def rolebuttons_restriction_add(
         self, ctx, view_id: int, role: nextcord.Role, type: str
     ):
@@ -588,7 +588,7 @@ class RoleButtons(commands.Cog):
         )
 
     @commands.check(check.acl)
-    @rolebuttons_item_.command(name="remove")
+    @rolebuttons_restriction_.command(name="remove")
     async def rolebuttons_restriction_remove(
         self, ctx, view_id: int, role: Union[nextcord.Role, int]
     ):
