@@ -122,7 +122,7 @@ class RoleButtons(commands.Cog):
         embed.add_field(
             name=_(ctx, "Messages"),
             value="\n".join(
-                [(message.message_id, message.channel_id) for message in view.messages]
+                [f'{message.message_id}, {message.channel_id}' for message in view.messages]
             )
             if view.messages
             else "-",
