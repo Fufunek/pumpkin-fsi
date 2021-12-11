@@ -10,7 +10,7 @@ from .objects import RBViewUI
 from .database import RBView, RestrictionType, RBOption, RBItem, DiscordType, RBMessage
 from .utils import RBUtils as rbutils
 
-_ = i18n.Translator("modules/rolebuttons").translate
+_ = i18n.Translator("modules/fsi").translate
 guild_log = logger.Guild.logger()
 bot_log = logger.Bot.logger()
 

@@ -15,7 +15,7 @@ from .database import (
 
 from .utils import RBUtils as rbutils
 
-_ = i18n.Translator("modules/rolebuttons").translate
+_ = i18n.Translator("modules/fsi").translate
 guild_log = logger.Guild.logger()
 
 
