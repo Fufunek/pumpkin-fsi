@@ -435,7 +435,7 @@ class RoleButtons(commands.Cog):
         view.add_option(option)
 
         await ctx.send(_(ctx, "Option added with ID {id}.").format(id=option.idx))
-        
+
     @commands.check(check.acl)
     @rolebuttons_option_.command(name="add")
     async def rolebuttons_option_edit(
@@ -457,7 +457,9 @@ class RoleButtons(commands.Cog):
         """
         option = RBOption.get(ctx.guild, option_id)
         if option is None:
-            await ctx.reply(_(ctx, "Option with ID {id} not found.").format(id=view_id))
+            await ctx.reply(
+                _(ctx, "Option with ID {id} not found.").format(id=option_id)
+            )
             return
 
         if emoji == "" or emoji == "None":
@@ -465,7 +467,9 @@ class RoleButtons(commands.Cog):
 
         option.label = label
         option.description = description
-        option.emoji=rbutils.emoji_encode(self.bot, emoji) if emoji is not None else None
+        option.emoji = (
+            rbutils.emoji_encode(self.bot, emoji) if emoji is not None else None
+        )
 
         option.save()
 
@@ -541,6 +545,87 @@ class RoleButtons(commands.Cog):
         await ctx.send(
             _(ctx, "Item {name} added to Option ID {id}").format(
                 name=dc_item.name, id=option_id
+            )
+        )
+
+    @commands.check(check.acl)
+    @rolebuttons_.group(name="restriction")
+    async def rolebuttons_restriction_(self, ctx):
+        await utils.discord.send_help(ctx)
+
+    @commands.check(check.acl)
+    @rolebuttons_item_.command(name="add")
+    async def rolebuttons_restriction_add(
+        self, ctx, view_id: int, role: nextcord.Role, type: str
+    ):
+        """Add role restriction to View.
+
+        Args:
+            view_id: ID of View
+            role: Affected role
+            type: ALLOW or DISALLOW
+        """
+        types = ["ALLOW", "DISALLOW"]
+        if type not in types:
+            await ctx.reply(
+                _(ctx, "Type must be one of these: {types}").format(", ".join(types))
+            )
+            return
+
+        type = RestrictionType[type]
+
+        view = RBView.get(ctx.guild, view_id)
+        if view is None:
+            await ctx.reply(_(ctx, "View with ID {id} not found.").format(id=view_id))
+            return
+
+        view.add_restriction(role, type)
+
+        await ctx.send(
+            _(ctx, "Restriction for role {name} added to View ID {id}").format(
+                name=role.name, id=view_id
+            )
+        )
+
+    @commands.check(check.acl)
+    @rolebuttons_item_.command(name="remove")
+    async def rolebuttons_restriction_remove(
+        self, ctx, view_id: int, role: Union[nextcord.Role, int]
+    ):
+        """Remove role restriction
+
+        Args:
+            view_id: ID of View
+            role: Affected role
+        """
+        view = RBView.get(ctx.guild, view_id)
+        if view is None:
+            await ctx.reply(_(ctx, "View with ID {id} not found.").format(id=view_id))
+            return
+
+        role_id = role if isinstance(role, int) else role.id
+        role_name = "({})".format(role) if isinstance(role, int) else role.name
+
+        restriction = next(
+            (
+                restriction
+                for restriction in view.restrictions
+                if restriction.role_id == role_id
+            ),
+            None,
+        )
+
+        if not restriction:
+            await ctx.send(
+                _(ctx, "Restriction not found in View ID {id}").format(id=view_id)
+            )
+            return
+
+        view.remove_restriction(restriction)
+
+        await ctx.send(
+            _(ctx, "Restriction for role {name} removed from View with ID {id}").format(
+                name=role_name, id=view_id
             )
         )
 
@@ -709,7 +794,7 @@ class RoleButtons(commands.Cog):
 
     @commands.check(check.acl)
     @rolebuttons_message_.command(name="detach")
-    async def rolebuttons_message_dettach(self, ctx, message_id: int):
+    async def rolebuttons_message_detach(self, ctx, message_id: int):
         """Detach View from Message.
 
         Args:
@@ -733,7 +818,7 @@ class RoleButtons(commands.Cog):
         view.remove_message(rbmessage)
 
         if message is None:
-            ctx.reply(
+            await ctx.reply(
                 _(
                     ctx, "Message with ID {id} not found on Discord. Detached anyway."
                 ).format(id=message_id)
@@ -742,7 +827,7 @@ class RoleButtons(commands.Cog):
 
         await message.edit(view=None)
 
-        ctx.reply(_(ctx, "Message with ID {id} detached.").format(id=message_id))
+        await ctx.reply(_(ctx, "Message with ID {id} detached.").format(id=message_id))
 
 
 class ItemDummy:

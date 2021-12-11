@@ -126,6 +126,25 @@ class RBView(database.base):
         self.messages.append(rbmessage)
         session.commit()
 
+    def add_restriction(self, role: nextcord.Role, type: RestrictionType):
+        restriction = (
+            session.query(RBRestriction)
+            .filter_by(view_id=self.idx, role_id=role.id)
+            .one_or_none()
+        )
+
+        if not restriction:
+            restriction = RBRestriction(view_id=self.idx, role_id=role.id)
+
+        restriction.type = type
+
+        session.merge(restriction)
+        session.commit()
+
+    def remove_restriction(self, restriction):
+        self.restrictions.remove(restriction)
+        session.commit()
+
     def remove_message(self, message: RBMessage):
         self.messages.remove(message)
         session.commit()
@@ -176,7 +195,7 @@ class RBOption(database.base):
     def add_item(self, item: RBItem):
         self.items.append(item)
         session.commit()
-        
+
     def save(self):
         session.commit()
 
