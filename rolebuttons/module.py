@@ -82,7 +82,7 @@ class RoleButtons(commands.Cog):
             author=ctx.author, title=_(ctx, "Item information")
         )
 
-        role, channel = rbutils.process_items(item, ctx.guild)
+        role, channel = rbutils.process_items([item], ctx.guild)
 
         item = role + channel
 
@@ -91,7 +91,7 @@ class RoleButtons(commands.Cog):
         else:
             name = item.mention
 
-        embed.add_field(name=_(ctx, "ID"), value=str.item.discord_id)
+        embed.add_field(name=_(ctx, "ID"), value=str(item.discord_id))
         embed.add_field(name=_(ctx, "Option ID"), value=option.idx)
         embed.add_field(name=_(ctx, "Name"), value=name)
         embed.add_field(name=_(ctx, "Type"), value=name.__class__.__name__)
