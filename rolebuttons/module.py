@@ -68,7 +68,7 @@ class RoleButtons(commands.Cog):
         print("Loading RoleButtons persistent views. Waiting for bot being ready.")
         await self.bot.wait_until_ready()
 
-    def _get_item_embed(self, ctx, option: RBOption, item: RBItem) -> nextcord.Embed:
+    async def _get_item_embed(self, ctx, option: RBOption, item: RBItem) -> nextcord.Embed:
         """Create information embed for item.
 
         Args:
@@ -700,7 +700,7 @@ class RoleButtons(commands.Cog):
 
         item = items[0]
 
-        embed = self._get_item_embed(ctx, option, item)
+        embed = await self._get_item_embed(ctx, option, item)
         embed.title = _(ctx, "Do you want to delete this item?")
 
         view = ConfirmView(ctx, embed)
