@@ -82,7 +82,7 @@ class RoleButtons(commands.Cog):
             author=ctx.author, title=_(ctx, "Item information")
         )
 
-        role, channel = rbutils.process_items([item], ctx.guild)
+        role, channel = await rbutils.process_items([item], ctx.guild)
 
         item = role + channel
 
