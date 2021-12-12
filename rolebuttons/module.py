@@ -89,7 +89,7 @@ class RoleButtons(commands.Cog):
         if len(item) != 1:
             name = "({id})".format(id=item.discord_id)
         else:
-            name = item.mention
+            name = item[0].mention
 
         embed.add_field(name=_(ctx, "ID"), value=str(item.discord_id))
         embed.add_field(name=_(ctx, "Option ID"), value=option.idx)
