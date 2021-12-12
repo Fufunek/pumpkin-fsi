@@ -84,17 +84,19 @@ class RoleButtons(commands.Cog):
 
         role, channel = await rbutils.process_items([item], ctx.guild)
 
-        item = role + channel
+        dc_items = role + channel
 
-        if len(item) != 1:
+        if len(dc_items) != 1:
             name = "({id})".format(id=item.discord_id)
+            type = "?"
         else:
-            name = item[0].mention
+            name = dc_items[0].mention
+            type = dc_items[0].__class__.__name__
 
         embed.add_field(name=_(ctx, "ID"), value=str(item.discord_id))
         embed.add_field(name=_(ctx, "Option ID"), value=option.idx)
         embed.add_field(name=_(ctx, "Name"), value=name)
-        embed.add_field(name=_(ctx, "Type"), value=name.__class__.__name__)
+        embed.add_field(name=_(ctx, "Type"), value=type)
 
         return embed
 
