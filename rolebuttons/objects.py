@@ -232,7 +232,7 @@ class RBViewUI(nextcord.ui.View):
                 remove_channels = r_channels.difference(channels)
                 await self._remove_items(
                     member,
-                    [role for role in remove_roles if remove_roles in member.roles],
+                    [role for role in remove_roles if role in member.roles],
                     remove_channels,
                 )
 
