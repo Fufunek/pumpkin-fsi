@@ -44,6 +44,20 @@ class RBMessage(database.base):
         query = session.query(RBMessage).filter_by(message_id=message_id).one_or_none()
         return query
 
+    def __repr__(self) -> str:
+        return (
+            f'<RBMessage message_id="{self.message_id}" channel_id="{self.channel_id}" '
+            f'view_id="{self.view_id}" rbview="{self.rbview}">'
+        )
+
+    def dump(self) -> dict:
+        return {
+            "message_id": self.message_id,
+            "channel_id": self.channel_id,
+            "view_id": self.view_id,
+            "rbview": self.rbview,
+        }
+
 
 class RBRestriction(database.base):
     """Main purpose of this table is to hold
@@ -66,6 +80,19 @@ class RBRestriction(database.base):
     )
     role_id = Column(BigInteger, primary_key=True)
     type = Column(Enum(RestrictionType))
+
+    def __repr__(self) -> str:
+        return (
+            f'<RBRestriction view_id="{self.view_id}" role_id="{self.role_id}" '
+            f'type="{self.type}">'
+        )
+
+    def dump(self) -> dict:
+        return {
+            "view_id": self.view_id,
+            "role_id": self.role_id,
+            "type": self.type,
+        }
 
 
 class RBView(database.base):
@@ -160,6 +187,23 @@ class RBView(database.base):
     def save(self):
         session.commit()
 
+    def __repr__(self) -> str:
+        return (
+            f'<RBView idx="{self.idx}" guild_id="{self.guild_id}" '
+            f'unique="{self.unique}" messages="{self.messages}" '
+            f'restrictions="{self.restrictions}" options="{self.options}" >'
+        )
+
+    def dump(self) -> dict:
+        return {
+            "idx": self.idx,
+            "guild_id": self.guild_id,
+            "unique": self.unique,
+            "messages": self.messages,
+            "restrictions": self.restrictions,
+            "options": self.options,
+        }
+
 
 class RBOption(database.base):
     """Represents one item in Select and is used to determine
@@ -199,6 +243,25 @@ class RBOption(database.base):
     def save(self):
         session.commit()
 
+    def __repr__(self) -> str:
+        return (
+            f'<RBOption idx="{self.idx}" view_id="{self.view_id}" '
+            f'label="{self.label}" description="{self.description}" '
+            f'emoji="{self.emoji}" items="{self.items}" '
+            f'rbview="{self.rbview}" >'
+        )
+
+    def dump(self) -> dict:
+        return {
+            "idx": self.idx,
+            "view_id": self.guild_id,
+            "label": self.label,
+            "description": self.description,
+            "emoji": self.emoji,
+            "items": self.items,
+            "rbview": self.rbview,
+        }
+
 
 class RBItem(database.base):
     """This table is used to pair one or more roles and channels
@@ -230,3 +293,16 @@ class RBItem(database.base):
     def delete(self):
         session.delete(self)
         session.commit()
+
+    def __repr__(self) -> str:
+        return (
+            f'<RBItem option_id="{self.option_id}" discord_id="{self.discord_id}" '
+            f'discord_type="{self.discord_type}">'
+        )
+
+    def dump(self) -> dict:
+        return {
+            "option_id": self.option_id,
+            "discord_id": self.discord_id,
+            "discord_type": self.discord_type,
+        }
