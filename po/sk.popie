@@ -58,9 +58,6 @@ msgstr
 msgid Could not create RoleButtons View.
 msgstr
 
-msgid Unique
-msgstr
-
 msgid View with ID {id} not found.
 msgstr
 
@@ -176,6 +173,9 @@ msgid Your message was sent into channel {channel}
 msgstr
 
 msgid Your message {id} in channel {channel} was edited.
+msgstr
+
+msgid Message exported to TXT.
 msgstr
 
 msgid (GLOBAL)

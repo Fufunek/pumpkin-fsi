@@ -137,6 +137,40 @@ class Sudo(commands.Cog):
         )
 
     @commands.check(check.acl)
+    @sudo_message_.commands(name="download")
+    async def sudo_message_download(self, ctx, channel_id: int, message_id: int):
+        """Downloads message to file.
+
+        Args:
+            channel: Channel ID to send message, 0 if current channel
+            message_id: ID of downloaded message
+        """
+        if channel_id == 0:
+            channel_id = ctx.channel.id
+
+        dc_message = await utils.discord.get_message(
+            self.bot, ctx.guild.id, channel_id, message_id
+        )
+
+        if dc_message is None:
+            ctx.reply(_(ctx, "Message with ID {id} not found.").format(id=message_id))
+
+        file = tempfile.TemporaryFile(mode="w+")
+
+        file.write(dc_message.content)
+
+        filename = "message-{channel}-{message}.txt".format(
+            channel=channel_id, message=dc_message.id
+        )
+
+        file.seek(0)
+        await ctx.reply(
+            _(ctx, "Message exported to TXT."),
+            file=nextcord.File(fp=file, filename=filename),
+        )
+        file.close()
+
+    @commands.check(check.acl)
     @sudo_message_.command(name="append")
     async def sudo_message_append(
         self, ctx, channel_id: int, message_id: int, *, message: str = None
@@ -144,7 +178,7 @@ class Sudo(commands.Cog):
         """Append to bot message.
 
         Args:
-            channel: Channel mention to send message, 0 if current channel
+            channel: Channel ID to send message, 0 if current channel
             message_id: ID of edited message
             message: Appended text (can be ommited when uploading .txt file)
         """

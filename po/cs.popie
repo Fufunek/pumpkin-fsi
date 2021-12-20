@@ -58,9 +58,6 @@ msgstr RoleButtons View vytvořen s ID {id}
 msgid Could not create RoleButtons View.
 msgstr Nepodařilo se vytvořit RoleButtons View.
 
-msgid Unique
-msgstr Unikátní
-
 msgid View with ID {id} not found.
 msgstr View s ID {id} nenalezen.
 
@@ -177,6 +174,9 @@ msgstr Tvá zpráva byla odeslána do kanálu {channel}
 
 msgid Your message {id} in channel {channel} was edited.
 msgstr Tvá zpráva s ID {id} v kanálu {channel} byla upravena.
+
+msgid Message exported to TXT.
+msgstr Zpráva exportována do TXT.
 
 msgid (GLOBAL)
 msgstr (GLOBÁLNÍ)
