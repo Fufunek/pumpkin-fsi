@@ -137,7 +137,7 @@ class Sudo(commands.Cog):
         )
 
     @commands.check(check.acl)
-    @sudo_message_.commands(name="download")
+    @sudo_message_.command(name="download")
     async def sudo_message_download(self, ctx, channel_id: int, message_id: int):
         """Downloads message to file.
 
