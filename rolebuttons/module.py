@@ -300,7 +300,7 @@ class RoleButtons(commands.Cog):
         views = RBView.get_all(ctx.guild)
         embeds = []
         for view in views:
-            embed = self._get_view_embed(ctx, view)
+            embed = await self._get_view_embed(ctx, view)
             embeds.append(embed)
 
         scrollable_embed = ScrollableEmbed(ctx, embeds)
