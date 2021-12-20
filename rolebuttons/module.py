@@ -448,7 +448,7 @@ class RoleButtons(commands.Cog):
 
         Args:
             option_id: ID of Option.
-            order: Position (higher number = higher positionú
+            order: Position (higher number = lower in list; default 0)
         """
         option = RBOption.get(ctx.guild, option_id)
         if option is None:
