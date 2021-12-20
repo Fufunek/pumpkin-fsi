@@ -4,7 +4,7 @@ from nextcord.ext import commands, tasks
 from typing import Dict, List, Optional, Union
 
 from pie import i18n, logger, utils, check
-from pie.utils.objects import ConfirmView
+from pie.utils.objects import ConfirmView, ScrollableEmbed
 
 from .objects import RBViewUI
 from .database import RBView, RestrictionType, RBOption, RBItem, DiscordType, RBMessage
@@ -298,15 +298,13 @@ class RoleButtons(commands.Cog):
     async def rolebuttons_list(self, ctx):
         """Get list of Views"""
         views = RBView.get_all(ctx.guild)
-        tables = utils.text.create_table(
-            views,
-            {
-                "idx": _(ctx, "ID"),
-                "unique": _(ctx, "Unique"),
-            },
-        )
-        for table in tables:
-            await ctx.send("```" + table + "```")
+        embeds = []
+        for view in views:
+            embed = self._get_view_embed(view)
+            embeds.push(embed)
+
+        scrollable_embed = ScrollableEmbed(ctx, embeds)
+        await scrollable_embed.scroll()
 
     @commands.check(check.acl)
     @rolebuttons_.command(name="delete")
