@@ -115,7 +115,7 @@ class RBViewUI(nextcord.ui.View):
             bot=self.bot,
             utx=self.utx,
             custom_id="rb_view_{}:select".format(self.view.idx),
-            db_options=sorted(options, key=lambda x: x.label, reverse=False),
+            db_options=sorted(options, key=lambda x: (x.oid, x.label), reverse=False),
         )
 
         self.add_item(self.dropdown)

@@ -442,6 +442,31 @@ class RoleButtons(commands.Cog):
         await ctx.send(_(ctx, "Option added with ID {id}.").format(id=option.idx))
 
     @commands.check(check.acl)
+    @rolebuttons_option_.command(name="order")
+    async def rolebuttons_option_order(self, ctx, option_id: int, order: int = 0):
+        """Set Option order
+
+        Args:
+            option_id: ID of Option.
+            order: Position (higher number = higher positionú
+        """
+        option = RBOption.get(ctx.guild, option_id)
+        if option is None:
+            await ctx.reply(
+                _(ctx, "Option with ID {id} not found.").format(id=option_id)
+            )
+            return
+
+        option.oid = order
+        option.save()
+
+        await ctx.send(
+            _(ctx, "Set order {order} for Option ID {id}.").format(
+                order=order, id=option.idx
+            )
+        )
+
+    @commands.check(check.acl)
     @rolebuttons_option_.command(name="edit")
     async def rolebuttons_option_edit(
         self,

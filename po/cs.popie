@@ -56,7 +56,7 @@ msgid RoleButtons View created with ID {id}
 msgstr RoleButtons View vytvořen s ID {id}
 
 msgid Could not create RoleButtons View.
-msgstr Nepodařilo se vytvořit RoleButtons View
+msgstr Nepodařilo se vytvořit RoleButtons View.
 
 msgid Unique
 msgstr Unikátní
@@ -81,6 +81,9 @@ msgstr Option s ID {id} nenalezena.
 
 msgid Option added with ID {id}.
 msgstr Option přidána s ID {id}.
+
+msgid Set order {order} for Option ID {id}.
+msgstr Nastaveno pořadí {order} pro Option ID {id}.
 
 msgid Option with ID {id} edited.
 msgstr Option s ID {id} upravena.
@@ -179,7 +182,7 @@ msgid (GLOBAL)
 msgstr (GLOBÁLNÍ)
 
 msgid Set tag role {role} with vote limit {limit} in channel {channel}.
-msgstr Nastavena tagovací role {role} s minimem hlasů {limit} v kanálu {channel}
+msgstr Nastavena tagovací role {role} s minimem hlasů {limit} v kanálu {channel}.
 
 msgid User has to have this role.
 msgstr Uživatel musí tuto roli mít.
@@ -188,7 +191,7 @@ msgid Tag setting could not be created.
 msgstr Nastavení tagování nemohlo být vytvořeno.
 
 msgid No entry found for this role and channel combination!
-msgstr Nenalezen žádný záznam pro kombinaci této role a kanálu
+msgstr Nenalezen žádný záznam pro kombinaci této role a kanálu!
 
 msgid Settings for role {role} and channel {channel} were unset.
 msgstr Nastavení pro roli {role} a kanál {channel} bylo zrušeno.

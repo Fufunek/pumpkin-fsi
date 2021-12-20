@@ -216,6 +216,7 @@ class RBOption(database.base):
         description: Description of select
         emoji: Emoji showed in select
         items: Roles and channels assigned to Option
+        oid: Order ID
     """
 
     __tablename__ = "fsi_rolebutton_option"
@@ -225,6 +226,7 @@ class RBOption(database.base):
     label = Column(String)
     description = Column(String)
     emoji = Column(String)
+    oid = Column(Integer, default=0)
     items = relationship("RBItem", cascade="all, delete")
     rbview = relationship("RBView", back_populates="options")
 

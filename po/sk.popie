@@ -82,6 +82,9 @@ msgstr
 msgid Option added with ID {id}.
 msgstr
 
+msgid Set order {order} for Option ID {id}.
+msgstr
+
 msgid Option with ID {id} edited.
 msgstr
 
