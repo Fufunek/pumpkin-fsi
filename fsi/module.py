@@ -71,7 +71,7 @@ class FSI(commands.Cog):
     async def _datart_reaction(self, message):
         if message.author.bot:
             return
-        await message.channel.send("CZC nebo Alza <:objection:923197087225614356>")
+        await message.channel.send("CZC nebo Alza <:objection:891788939592106014>")
 
     def _slovakize(self, text: str) -> str:
         text = text.replace(".", "").replace("?", "").replace("!", "").replace(",", "")
