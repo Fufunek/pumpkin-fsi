@@ -47,7 +47,10 @@ class FSI(commands.Cog):
             await self._uhoh_reaction(message)
         elif re.match(HUG_REGEX, message.content, flags=re.IGNORECASE):
             await self._hug_reaction(message)
-        elif message.author.id == 257160038416777218 and message.content.lower().find("datart") != -1:
+        elif (
+            message.author.id == 257160038416777218
+            and message.content.lower().find("datart") != -1
+        ):
             await self._datart_reaction(message)
 
     # HELPER FUNCTIONS
