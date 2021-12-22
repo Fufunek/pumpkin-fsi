@@ -11,7 +11,6 @@ guild_log = logger.Guild.logger()
 FISH_REGEX = r"^je [cč]erstv[aá]"
 UH_OH_REGEX = r"^uh oh"
 HUG_REGEX = r"<:peepoHug:897172785250594816>"
-DATART_REGEX = r"datart"
 
 
 class FSI(commands.Cog):
@@ -48,7 +47,7 @@ class FSI(commands.Cog):
             await self._uhoh_reaction(message)
         elif re.match(HUG_REGEX, message.content, flags=re.IGNORECASE):
             await self._hug_reaction(message)
-        elif re.match(DATART_REGEX, message.content, flags=re.IGNORECASE):
+        elif message.author.id == 257160038416777218 and "datart" in message.content.lower():
             await self._datart_reaction(message)
 
     # HELPER FUNCTIONS
@@ -69,8 +68,6 @@ class FSI(commands.Cog):
         await message.channel.send("<:peepoHug:897172785250594816>")
 
     async def _datart_reaction(self, message):
-        if message.author.bot:
-            return
         await message.channel.send("CZC nebo Alza <:objection:891788939592106014>")
 
     def _slovakize(self, text: str) -> str:
