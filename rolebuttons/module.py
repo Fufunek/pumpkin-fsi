@@ -194,7 +194,7 @@ class RoleButtons(commands.Cog):
             inline=True,
         )
 
-        items = await self._get_item_names(ctx.guild, option)
+        items = await self._get_item_names(ctx, option)
 
         embed.add_field(
             name=_(ctx, "Items"),
@@ -231,6 +231,14 @@ class RoleButtons(commands.Cog):
         return roles
 
     async def _get_option_names(self, ctx, view) -> List[str]:
+        """Create list of option names in format `(id) label`
+
+        Args:
+            ctx: Command context
+            view: View DB object
+
+        Returns: :class:`List[str]` of formated option names
+        """
         options = []
 
         for option in view.options:
@@ -238,17 +246,25 @@ class RoleButtons(commands.Cog):
 
         return options
 
-    async def _get_item_names(self, guild: nextcord.Guild, option: RBOption) -> str:
+    async def _get_item_names(self, ctx, option: RBOption) -> str:
+        """Create list of option's item names as tagging strings
+
+        Args:
+            ctx: Command context
+            option: Option for getting item list
+
+        Returns: :class:`List[str]` of formated option's items
+        """
         items = []
         for item in option.items:
             if item.discord_type == DiscordType.ROLE:
-                role = guild.get_role(item.discord_id)
+                role = ctx.guild.get_role(item.discord_id)
                 if not role:
                     items.append("(\\@{id})".format(id=item.discord_id))
                 else:
                     items.append(role.mention)
             else:
-                channel = guild.get_channel(item.discord_id)
+                channel = ctx.guild.get_channel(item.discord_id)
                 if not channel or not isinstance(channel, nextcord.abc.GuildChannel):
                     items.append("(\\#{id})".format(id=item.discord_id))
                 else:
