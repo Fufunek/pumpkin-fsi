@@ -10,6 +10,7 @@ guild_log = logger.Guild.logger()
 
 FISH_REGEX = r"^je [cč]erstv[aá]"
 
+
 class FSI(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
@@ -40,6 +41,7 @@ class FSI(commands.Cog):
 
         if re.match(FISH_REGEX, message.content, flags=re.IGNORECASE):
             await self._fish_reaction(message)
+
     # HELPER FUNCTIONS
 
     async def _fish_reaction(self, message):
