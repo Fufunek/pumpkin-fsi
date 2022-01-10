@@ -172,7 +172,7 @@ class RBViewUI(nextcord.ui.View):
                 elif not is_allowed:
                     is_allowed = False
 
-        return is_allowed
+        return True if is_allowed is None else is_allowed
 
     async def add(self, interaction: nextcord.Interaction):
         """Button handler (callback) of button 'Add'
