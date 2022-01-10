@@ -9,9 +9,6 @@ _ = i18n.Translator("modules/fsi").translate
 guild_log = logger.Guild.logger()
 
 FISH_REGEX = r"^je [cč]erstv[aá]"
-UH_OH_REGEX = r"^uh oh"
-HUG_REGEX = r"<:peepoHug:897172785250594816>"
-
 
 class FSI(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -43,35 +40,12 @@ class FSI(commands.Cog):
 
         if re.match(FISH_REGEX, message.content, flags=re.IGNORECASE):
             await self._fish_reaction(message)
-        elif re.match(UH_OH_REGEX, message.content, flags=re.IGNORECASE):
-            await self._uhoh_reaction(message)
-        elif re.match(HUG_REGEX, message.content, flags=re.IGNORECASE):
-            await self._hug_reaction(message)
-        elif (
-            message.author.id == 257160038416777218
-            and message.content.lower().find("datart") != -1
-        ):
-            await self._datart_reaction(message)
-
     # HELPER FUNCTIONS
 
     async def _fish_reaction(self, message):
         if self.fish_cache < 4:
             self.fish_cache += 1
             await message.channel.send("Není čerstvá!")
-
-    async def _uhoh_reaction(self, message):
-        if message.author.bot:
-            return
-        await message.channel.send("Uh oh")
-
-    async def _hug_reaction(self, message):
-        if message.author.bot:
-            return
-        await message.channel.send("<:peepoHug:897172785250594816>")
-
-    async def _datart_reaction(self, message):
-        await message.channel.send("CZC nebo Alza <:objection:891788939592106014>")
 
     def _slovakize(self, text: str) -> str:
         text = text.replace(".", "").replace("?", "").replace("!", "").replace(",", "")
