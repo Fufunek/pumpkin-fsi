@@ -761,7 +761,7 @@ class RoleButtons(commands.Cog):
             await ctx.send(_(ctx, "Deleting timed out."))
         elif value:
             item.delete()
-            await ctx.send(_(ctx, "Item {name} deleted.").format(name=dc_item.name))
+            await ctx.send(_(ctx, "Item {name} deleted.").format(name=dc_item_name))
         else:
             await ctx.send(_(ctx, "Deleting aborted."))
 
