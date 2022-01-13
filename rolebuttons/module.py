@@ -189,6 +189,11 @@ class RoleButtons(commands.Cog):
             inline=True,
         )
         embed.add_field(
+            name=_(ctx, "Order"),
+            value=option.oid,
+            inline=True,
+        )
+        embed.add_field(
             name=_(ctx, "Description"),
             value=option.description,
             inline=True,
