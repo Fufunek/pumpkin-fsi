@@ -245,6 +245,10 @@ class RBOption(database.base):
     def save(self):
         session.commit()
 
+    def delete(self):
+        session.delete(self)
+        session.commit()
+
     def __repr__(self) -> str:
         return (
             f'<RBOption idx="{self.idx}" view_id="{self.view_id}" '
