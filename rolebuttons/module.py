@@ -736,12 +736,15 @@ class RoleButtons(commands.Cog):
                 if channel is not None:
                     dc_item = channel
 
-        items = [item for item in option.items if item.discord_id == dc_item.id]
+        dc_item_id = dc_item if isinstance(dc_item, int) else dc_item.id
+        dc_item_name = f"({dc_item})" if isinstance(dc_item, int) else dc_item.name
+
+        items = [item for item in option.items if item.discord_id == dc_item_id]
 
         if len(items) != 1:
             await ctx.reply(
                 _(ctx, "Item {name} in Option ID {id} not found.").format(
-                    name=dc_item.name, id=option_id
+                    name=dc_item_name, id=option_id
                 )
             )
             return
