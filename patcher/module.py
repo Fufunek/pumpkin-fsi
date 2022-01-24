@@ -21,7 +21,7 @@ class Patcher(commands.Cog):
             if await self._add_acl(command):
                 out += f"`{command}` "
 
-        bot_log.info(
+        await bot_log.info(
             None,
             None,
             out,
@@ -38,7 +38,7 @@ class Patcher(commands.Cog):
     async def _add_acl(self, command_name):
         command = self.bot.get_command(command_name)
         if command is None:
-            bot_log.error(
+            await bot_log.error(
                 None,
                 None,
                 f"Can't add ACL to command {command_name}. Command not found.",
