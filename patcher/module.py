@@ -3,7 +3,7 @@ from nextcord.ext import commands, tasks
 from pie import logger, check
 
 guild_log = logger.Guild.logger()
-bot_log = logger.Guild.logger()
+bot_log = logger.Bot.logger()
 
 ADD_ACL = ["gn", "selfunverify"]
 
