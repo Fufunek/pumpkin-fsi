@@ -214,6 +214,8 @@ class RBViewUI(nextcord.ui.View):
                 _(ctx, "You must select option first."), ephemeral=True
             )
             return
+            
+        await interaction.response.defer()
 
         items = RBItem.get_by_option(value)
 
