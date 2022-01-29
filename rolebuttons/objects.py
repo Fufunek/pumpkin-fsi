@@ -240,21 +240,17 @@ class RBViewUI(nextcord.ui.View):
 
             if await self._add_items(member, roles, channels):
                 await interaction.response.edit_message(
-                    _(ctx, "Roles and channels successfuly added."),
+                    _(ctx, "Roles and channels successfuly added.")
                 )
             else:
-                await interaction.response.edit_message(
-                    _(ctx, "Something went wrong."),
-                )
+                await interaction.response.edit_message(_(ctx, "Something went wrong."))
         else:
             if await self._remove_items(member, roles, channels):
                 await interaction.response.edit_message(
-                    _(ctx, "Roles and channels successfuly removed."),
+                    _(ctx, "Roles and channels successfuly removed.")
                 )
             else:
-                await interaction.response.edit_message(
-                    _(ctx, "Something went wrong."),
-                )
+                await interaction.response.edit_message(_(ctx, "Something went wrong."))
 
     async def _add_items(
         self,
