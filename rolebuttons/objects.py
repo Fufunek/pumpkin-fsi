@@ -215,7 +215,7 @@ class RBViewUI(nextcord.ui.View):
             )
             return
             
-        await interaction.response.defer()
+        await interaction.response.defer(ephemeral=True, with_message=True)
 
         items = RBItem.get_by_option(value)
 
