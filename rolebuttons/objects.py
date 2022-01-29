@@ -215,10 +215,7 @@ class RBViewUI(nextcord.ui.View):
             )
             return
 
-        await interaction.response.send_message(
-            _(ctx, "Processing..."),
-            ephemeral=True,
-        )
+        await interaction.response.defer()
 
         items = RBItem.get_by_option(value)
 
@@ -242,21 +239,25 @@ class RBViewUI(nextcord.ui.View):
                 )
 
             if await self._add_items(member, roles, channels):
-                await interaction.response.edit_message(
+                await interaction.send(
                     content=_(ctx, "Roles and channels successfuly added."),
+                    ephemeral=True,
                 )
             else:
-                await interaction.response.edit_message(
+                await interaction.send(
                     content=_(ctx, "Something went wrong."),
+                    ephemeral=True,
                 )
         else:
             if await self._remove_items(member, roles, channels):
-                await interaction.response.edit_message(
+                await interaction.send(
                     content=_(ctx, "Roles and channels successfuly removed."),
+                    ephemeral=True,
                 )
             else:
-                await interaction.response.edit_message(
+                await interaction.send(
                     content=_(ctx, "Something went wrong."),
+                    ephemeral=True,
                 )
 
     async def _add_items(
