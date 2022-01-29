@@ -239,22 +239,22 @@ class RBViewUI(nextcord.ui.View):
                 )
 
             if await self._add_items(member, roles, channels):
-                await interaction.response.send_message(
+                await interaction.response.edit_message(
                     _(ctx, "Roles and channels successfuly added."),
                     ephemeral=True,
                 )
             else:
-                await interaction.response.send_message(
+                await interaction.response.edit_message(
                     _(ctx, "Something went wrong."), ephemeral=True
                 )
         else:
             if await self._remove_items(member, roles, channels):
-                await interaction.response.send_message(
+                await interaction.response.edit_message(
                     _(ctx, "Roles and channels successfuly removed."),
                     ephemeral=True,
                 )
             else:
-                await interaction.response.send_message(
+                await interaction.response.edit_message(
                     _(ctx, "Something went wrong."), ephemeral=True
                 )
 
