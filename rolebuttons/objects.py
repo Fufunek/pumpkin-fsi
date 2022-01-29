@@ -215,7 +215,10 @@ class RBViewUI(nextcord.ui.View):
             )
             return
 
-        await interaction.response.defer(ephemeral=True)
+        await interaction.response.send_message(
+            _(ctx, "Processing..."),
+            ephemeral=True,
+        )
 
         items = RBItem.get_by_option(value)
 
