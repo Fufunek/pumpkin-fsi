@@ -214,7 +214,7 @@ class RBViewUI(nextcord.ui.View):
                 _(ctx, "You must select option first."), ephemeral=True
             )
             return
-            
+
         await interaction.response.defer(ephemeral=True)
 
         items = RBItem.get_by_option(value)
@@ -241,21 +241,19 @@ class RBViewUI(nextcord.ui.View):
             if await self._add_items(member, roles, channels):
                 await interaction.response.edit_message(
                     _(ctx, "Roles and channels successfuly added."),
-                    ephemeral=True,
                 )
             else:
                 await interaction.response.edit_message(
-                    _(ctx, "Something went wrong."), ephemeral=True
+                    _(ctx, "Something went wrong."),
                 )
         else:
             if await self._remove_items(member, roles, channels):
                 await interaction.response.edit_message(
                     _(ctx, "Roles and channels successfuly removed."),
-                    ephemeral=True,
                 )
             else:
                 await interaction.response.edit_message(
-                    _(ctx, "Something went wrong."), ephemeral=True
+                    _(ctx, "Something went wrong."),
                 )
 
     async def _add_items(
