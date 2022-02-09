@@ -37,7 +37,7 @@ class RBMessage(database.base):
     message_id = Column(BigInteger, primary_key=True)
     channel_id = Column(BigInteger)
     view_id = Column(Integer, ForeignKey("fsi_rolebutton_view.idx"), primary_key=True)
-    rbview = relationship("RBView", back_populates="messages")
+    rbview = relationship(lambda: RBView, back_populates="messages")
 
     @staticmethod
     def get(message_id: int):
@@ -114,9 +114,11 @@ class RBView(database.base):
     idx = Column(Integer, primary_key=True, autoincrement=True)
     guild_id = Column(BigInteger)
     unique = Column(Boolean)
-    messages = relationship("RBMessage", cascade="all, delete", back_populates="rbview")
-    restrictions = relationship("RBRestriction", cascade="all, delete")
-    options = relationship("RBOption", cascade="all, delete")
+    messages = relationship(
+        lambda: RBMessage, cascade="all, delete", back_populates="rbview"
+    )
+    restrictions = relationship(lambda: RBRestriction, cascade="all, delete")
+    options = relationship(lambda: RBOption, cascade="all, delete")
 
     @staticmethod
     def get_all(guild: nextcord.Guild = None) -> List[RBView]:
@@ -227,8 +229,8 @@ class RBOption(database.base):
     description = Column(String)
     emoji = Column(String)
     oid = Column(Integer, default=0)
-    items = relationship("RBItem", cascade="all, delete")
-    rbview = relationship("RBView", back_populates="options")
+    items = relationship(lambda: RBItem, cascade="all, delete")
+    rbview = relationship(lambda: RBView, back_populates="options")
 
     def get(guild: nextcord.Guild, option_id: int) -> Optional[RBItem]:
         query = session.query(RBOption).filter_by(idx=option_id).one_or_none()
