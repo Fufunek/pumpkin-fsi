@@ -33,19 +33,20 @@ class Sudo(commands.Cog):
 
     # COMMANDS
 
-    @commands.check(check.acl)
+    @commands.guild_only()
+    @check.acl2(check.ACLevel.SUBMOD)
     @commands.group(name="sudo")
     async def sudo_(self, ctx):
         """Do something as this bot."""
         await utils.discord.send_help(ctx)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.SUBMOD)
     @sudo_.group(name="message")
     async def sudo_message_(self, ctx):
         """Sends / edits message as this bot."""
         await utils.discord.send_help(ctx)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.SUBMOD)
     @sudo_message_.command(name="send")
     async def sudo_message_send(
         self,
@@ -87,7 +88,7 @@ class Sudo(commands.Cog):
             ),
         )
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.SUBMOD)
     @sudo_message_.command(name="edit")
     async def sudo_message_edit(
         self, ctx, channel_id: int, message_id: int, *, message: str = None
@@ -136,7 +137,7 @@ class Sudo(commands.Cog):
             ),
         )
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.SUBMOD)
     @sudo_message_.command(name="download")
     async def sudo_message_download(self, ctx, channel_id: int, message_id: int):
         """Downloads message to file.
@@ -170,7 +171,7 @@ class Sudo(commands.Cog):
         )
         file.close()
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.SUBMOD)
     @sudo_message_.command(name="append")
     async def sudo_message_append(
         self, ctx, channel_id: int, message_id: int, *, message: str = None

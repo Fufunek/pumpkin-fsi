@@ -16,12 +16,13 @@ class Tagging(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.check(check.acl)
+    @commands.guild_only()
+    @check.acl2(check.ACLevel.MEMBER)
     @commands.group(name="tagging")
     async def tagging_(self, ctx):
         await utils.discord.send_help(ctx)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @tagging_.command(name="set")
     async def tagging_set(
         self,
@@ -45,7 +46,7 @@ class Tagging(commands.Cog):
         else:
             await ctx.send(_(ctx, "Tag setting could not be created."))
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @tagging_.command(name="unset")
     async def tagging_unset(
         self,
@@ -67,7 +68,7 @@ class Tagging(commands.Cog):
                 ).format(channel=channel_name, role=role.name)
             )
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MEMBER)
     @tagging_.command(name="list")
     async def tagging_list(
         self, ctx, role: nextcord.Role = None, channel: nextcord.TextChannel = None
@@ -109,7 +110,8 @@ class Tagging(commands.Cog):
         for table_page in table_pages:
             await ctx.send("```" + table_page + "```")
 
-    @commands.check(check.acl)
+    @commands.guild_only()
+    @check.acl2(check.ACLevel.MEMBER)
     @commands.command(name="tag")
     async def tag(self, ctx, role: Union[nextcord.Role, str], *, message: str):
         await utils.discord.delete_message(ctx.message)

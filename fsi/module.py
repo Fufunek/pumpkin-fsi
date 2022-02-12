@@ -18,6 +18,7 @@ class FSI(commands.Cog):
         self.cleanup.start()
 
     @commands.command(aliases=["divocak", "jako"])
+    @check.acl2(check.ACLevel.MEMBER)
     async def slovakize(self, ctx, *, message: str = None):
         """Slovakize message"""
         if message is None:

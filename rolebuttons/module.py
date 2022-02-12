@@ -279,12 +279,13 @@ class RoleButtons(commands.Cog):
 
     # COMMANDS
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
+    @commands.guild_only()
     @commands.group(name="rolebuttons")
     async def rolebuttons_(self, ctx):
         await utils.discord.send_help(ctx)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.command(name="reload")
     async def rolebuttons_reload(self, ctx):
         """Reload all Views and re-attach them
@@ -294,7 +295,7 @@ class RoleButtons(commands.Cog):
         self.load_views.start()
         await ctx.send(_(ctx, "All Views reloaded."))
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.command(name="create")
     async def rolebuttons_create(self, ctx, unique: bool):
         """Create RoleButtons View.
@@ -314,7 +315,7 @@ class RoleButtons(commands.Cog):
         else:
             await ctx.reply(_(ctx, "Could not create RoleButtons View."))
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.command(name="list")
     async def rolebuttons_list(self, ctx):
         """Get list of Views"""
@@ -327,7 +328,7 @@ class RoleButtons(commands.Cog):
         scrollable_embed = ScrollableEmbed(ctx, embeds)
         await scrollable_embed.scroll()
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.command(name="delete")
     async def rolebuttons_delete(self, ctx, view_id: int):
         """Delete View. Has to be confirmed.
@@ -358,7 +359,7 @@ class RoleButtons(commands.Cog):
         else:
             await ctx.send(_(ctx, "Deleting aborted."))
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.command(name="info")
     async def rolebuttons_info(self, ctx, view_id: int):
         """Shows RoleButtons View information.
@@ -375,12 +376,12 @@ class RoleButtons(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.group(name="option")
     async def rolebuttons_option_(self, ctx):
         await utils.discord.send_help(ctx)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_option_.command(name="list")
     async def rolebuttons_option_list(self, ctx, view_id: int):
         """Shows list of View's Options
@@ -403,7 +404,7 @@ class RoleButtons(commands.Cog):
         for table in tables:
             await ctx.send("```" + table + "```")
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_option_.command(name="info")
     async def rolebuttons_option_info(self, ctx, option_id: int):
         """Shows RoleButtons View's Option information.
@@ -422,7 +423,7 @@ class RoleButtons(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_option_.command(name="add")
     async def rolebuttons_option_add(
         self,
@@ -460,7 +461,7 @@ class RoleButtons(commands.Cog):
 
         await ctx.send(_(ctx, "Option added with ID {id}.").format(id=option.idx))
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_option_.command(name="order")
     async def rolebuttons_option_order(self, ctx, option_id: int, order: int = 0):
         """Set Option order
@@ -485,7 +486,7 @@ class RoleButtons(commands.Cog):
             )
         )
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_option_.command(name="edit")
     async def rolebuttons_option_edit(
         self,
@@ -524,7 +525,7 @@ class RoleButtons(commands.Cog):
 
         await ctx.send(_(ctx, "Option with ID {id} edited.").format(id=option.idx))
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_option_.command(name="remove")
     async def rolebuttons_option_remove(self, ctx, option_id):
         """Delete option. Has to be confirmed.
@@ -553,12 +554,12 @@ class RoleButtons(commands.Cog):
         else:
             await ctx.send(_(ctx, "Deleting aborted."))
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.group(name="item")
     async def rolebuttons_item_(self, ctx):
         await utils.discord.send_help(ctx)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_item_.command(name="add")
     async def rolebuttons_item_add(
         self,
@@ -597,12 +598,12 @@ class RoleButtons(commands.Cog):
             )
         )
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.group(name="restriction")
     async def rolebuttons_restriction_(self, ctx):
         await utils.discord.send_help(ctx)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_restriction_.command(name="add")
     async def rolebuttons_restriction_add(
         self, ctx, view_id: int, role: nextcord.Role, type: str
@@ -636,7 +637,7 @@ class RoleButtons(commands.Cog):
             )
         )
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_restriction_.command(name="remove")
     async def rolebuttons_restriction_remove(
         self, ctx, view_id: int, role: Union[nextcord.Role, int]
@@ -678,7 +679,7 @@ class RoleButtons(commands.Cog):
             ).format(name=role_name, id=view_id)
         )
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_item_.command(name="list")
     async def rolebuttons_item_list(self, ctx, option_id: int):
         """List Option's items."""
@@ -711,7 +712,7 @@ class RoleButtons(commands.Cog):
         for table in tables:
             await ctx.send("```" + table + "```")
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_item_.command(name="delete")
     async def rolebuttons_item_remove(
         self,
@@ -765,12 +766,12 @@ class RoleButtons(commands.Cog):
         else:
             await ctx.send(_(ctx, "Deleting aborted."))
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.group(name="set")
     async def rolebuttons_set_(self, ctx):
         await utils.discord.send_help(ctx)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.command(name="unique")
     async def rolebuttons_set_unique(self, ctx, view_id: int, unique: bool):
         """Changes View's unique attribute.
@@ -794,12 +795,12 @@ class RoleButtons(commands.Cog):
             )
         )
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_.group(name="message")
     async def rolebuttons_message_(self, ctx):
         await utils.discord.send_help(ctx)
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_message_.command(name="attach")
     async def rolebuttons_message_attach(
         self, ctx, channel_id: int, message_id: int, view_id: int
@@ -848,7 +849,7 @@ class RoleButtons(commands.Cog):
             )
         )
 
-    @commands.check(check.acl)
+    @check.acl2(check.ACLevel.MOD)
     @rolebuttons_message_.command(name="detach")
     async def rolebuttons_message_detach(self, ctx, message_id: int):
         """Detach View from Message.
