@@ -3,7 +3,7 @@ import re
 import nextcord
 from nextcord.ext import commands, tasks
 
-from pie import i18n, logger, utils
+from pie import i18n, logger, utils, check
 
 _ = i18n.Translator("modules/fsi").translate
 guild_log = logger.Guild.logger()
