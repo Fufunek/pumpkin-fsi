@@ -57,6 +57,13 @@ class RoleButtons(commands.Cog):
                 )
                 if dc_message:
                     await dc_message.edit(view=view_ui)
+                else:
+                    await bot_log.warning(
+                        None,
+                        None,
+                        f"Can't assign RoleButtons view."
+                        f"Message with id {message.message_id} in channel {message.channel_id} not found! ",
+                    )
 
         print("All RoleButtons persistent views loaded.")
 
