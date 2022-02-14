@@ -46,24 +46,19 @@ class Soccer(commands.Cog):
         )
 
         if not after:
-            print("A")
             return
 
         if after.author.bot:
-            print("B")
             return
 
         if not self._is_soccer_channel(after.channel):
-            print("C")
             return
 
         if before:
-            print("D")
             word_before = self._get_word(before)
             word_after = self._get_word(after)
 
             if word_before == word_after:
-                print("E")
                 return
 
         await self._check_message(after)
