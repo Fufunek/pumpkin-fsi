@@ -20,7 +20,7 @@ bot_log = logger.Bot.logger()
 class Soccer(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.history_limit = 100
+        self.history_limit = 200
 
         self.soccer_channels = [935158870937071626]  # TODO REWORK
         
@@ -82,7 +82,7 @@ class Soccer(commands.Cog):
 
         word = self._get_word(message)
 
-        history = message.channel.history(limit=self.history_limit, oldest_first=True)
+        history = message.channel.history(limit=self.history_limit)
 
         async for history_message in history:
             if history_message.author.bot:
