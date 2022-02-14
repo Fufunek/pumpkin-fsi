@@ -7,7 +7,9 @@ import nextcord
 from nextcord import TextChannel, Thread, DMChannel, GroupChannel, PartialMessageable
 from nextcord.ext import commands
 
-from pie import logger, i18n, utils, database
+from pie import logger, i18n, utils, database, check
+
+from .database import SoccerChannel, SoccerIgnored
 
 _ = i18n.Translator("modules/fsi").translate
 
@@ -22,11 +24,118 @@ class Soccer(commands.Cog):
         self.bot = bot
         self.history_limit = 200
 
-        self.soccer_channels = [935158870937071626]  # TODO REWORK
-        
-        self.ignored_threads = [939848150825447424]
-
         self.embed_cache = {}
+
+    @check.acl2(check.ACLevel.SUBMOD)
+    @commands.guild_only()
+    @commands.group(name="soccer")
+    async def soccer_(self, ctx):
+        """Word soccer judge."""
+        await utils.discord.send_help(ctx)
+
+    @check.acl2(check.ACLevel.SUBMOD)
+    @soccer_.group(name="channel")
+    async def soccer_channel_(self, ctx):
+        """Manage word soccer channels."""
+        await utils.discord.send_help(ctx)
+
+    @check.acl2(check.ACLevel.SUBMOD)
+    @soccer_channel_.group(name="add")
+    async def soccer_channel_add(self, ctx, channel: nextcord.TextChannel):
+        """Mark channel as word soccer channel."""
+        SoccerChannel.add(channel.guild.id, channel.id)
+        await ctx.reply(
+            _(ctx, "Channel **{channel}** marked as word soccer.").format(
+                channel=channel.name
+            )
+        )
+
+    @check.acl2(check.ACLevel.SUBMOD)
+    @soccer_channel_.group(name="remove")
+    async def soccer_channel_remove(self, ctx, channel: nextcord.TextChannel):
+        """Unmark channel as word soccer channel."""
+        db_channel = SoccerChannel.get(channel.guild.id, channel.id)
+
+        if not db_channel:
+            await ctx.reply(_(ctx, "Channel is not marked as word soccer!"))
+
+        db_channel.delete()
+
+        await ctx.reply(
+            _(ctx, "Channel **{channel}** unmarked as word soccer.").format(
+                channel=channel.name
+            )
+        )
+
+    @check.acl2(check.ACLevel.SUBMOD)
+    @soccer_channel_.group(name="list")
+    async def soccer_channel_list(self, ctx):
+        """List word soccer channel."""
+        db_channels = SoccerChannel.get_all(ctx.guild.id)
+
+        if not db_channels:
+            return await ctx.reply(_(ctx, "No channels found."))
+
+        channels = [ctx.guild.get_channel(c.channel_id) for c in db_channels]
+        column_name_width: int = max([len(c.name) for c in channels if c])
+
+        result = []
+        for channel in channels:
+            name = getattr(channel, "name", "???")
+            line = f"#{name:<{column_name_width}} {channel.id}"
+            result.append(line)
+
+        await ctx.reply("```" + "\n".join(result) + "```")
+
+    @check.acl2(check.ACLevel.SUBMOD)
+    @soccer_.group(name="ignored")
+    async def soccer_ignored_(self, ctx):
+        """Manage threads ignored by word soccer judge.."""
+        await utils.discord.send_help(ctx)
+
+    @check.acl2(check.ACLevel.SUBMOD)
+    @soccer_ignored_.group(name="add")
+    async def soccer_ignored_add(self, ctx, thread: nextcord.Thread):
+        """Mark thread as ignored by word soccer judge."""
+        SoccerIgnored.add(thread.guild.id, thread.id)
+        await ctx.reply(
+            _(ctx, "Thread **{thread}** will be ignored.").format(thread=thread.name)
+        )
+
+    @check.acl2(check.ACLevel.SUBMOD)
+    @soccer_ignored_.group(name="remove")
+    async def soccer_ignored_remove(self, ctx, thread: nextcord.Thread):
+        """Unmark thread as ignored by word soccer judge."""
+        db_thread = SoccerIgnored.get(thread.guild.id, thread.id)
+
+        if not db_thread:
+            await ctx.reply(_(ctx, "Thread is not marked as ignored!"))
+
+        db_thread.delete()
+
+        await ctx.reply(
+            _(ctx, "Thread **{thread}** is no more ignored.").format(thread=thread.name)
+        )
+
+    @check.acl2(check.ACLevel.SUBMOD)
+    @soccer_ignored_.group(name="list")
+    async def soccer_ignored_list(self, ctx):
+        """List threads marked as ignored by word soccer judge."""
+        db_threads = SoccerIgnored.get_all(ctx.guild.id)
+
+        if not db_threads:
+            return await ctx.reply(_(ctx, "No threads found."))
+
+        threads = [ctx.guild.get_thread(t.thread_id) for t in db_threads]
+        column_name_width: int = max([len(t.name) for t in threads if t])
+
+        result = []
+        for channel in threads:
+            name = getattr(channel, "name", "???")
+            line = f"#{name:<{column_name_width}} {channel.id}"
+            result.append(line)
+
+        await ctx.reply("```" + "\n".join(result) + "```")
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -160,14 +269,14 @@ class Soccer(commands.Cog):
     ) -> bool:
         if not isinstance(channel, nextcord.Thread):
             return False
-            
-        if channel.id in self.ignored_threads:
+
+        if SoccerIgnored.exists(channel.guild.id, channel.id):
             return False
-        
+
         if not channel.guild:
             return False
 
-        if channel.parent.id not in self.soccer_channels:
+        if not SoccerChannel.exists(channel.guild.id, channel.parent.id):
             return False
 
         return True
