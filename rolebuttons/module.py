@@ -826,13 +826,13 @@ class RoleButtons(commands.Cog):
             channel_id = ctx.channel.id
 
         if view_id not in self.views:
-            ctx.reply(_(ctx, "View with ID {id} not loaded.").format(id=view_id))
+            await ctx.reply(_(ctx, "View with ID {id} not loaded.").format(id=view_id))
             return
 
         view = self.views[view_id]
 
         if view.view.guild_id != ctx.guild.id:
-            ctx.reply(_(ctx, "View with ID {id} not found.").format(id=view_id))
+            await ctx.reply(_(ctx, "View with ID {id} not found.").format(id=view_id))
             return
 
         message = await utils.discord.get_message(
@@ -840,11 +840,11 @@ class RoleButtons(commands.Cog):
         )
 
         if message is None:
-            ctx.reply(_(ctx, "Message with ID {id} not found.").format(id=message_id))
+            await ctx.reply(_(ctx, "Message with ID {id} not found.").format(id=message_id))
             return
 
         if message.author != self.bot.user:
-            ctx.reply(_(ctx, "Message author must be bot."))
+            await ctx.reply(_(ctx, "Message author must be bot."))
             return
 
         view.view.add_message(message)
