@@ -840,7 +840,9 @@ class RoleButtons(commands.Cog):
         )
 
         if message is None:
-            await ctx.reply(_(ctx, "Message with ID {id} not found.").format(id=message_id))
+            await ctx.reply(
+                _(ctx, "Message with ID {id} not found.").format(id=message_id)
+            )
             return
 
         if message.author != self.bot.user:

@@ -172,6 +172,15 @@ msgstr Něco se pokazilo.
 msgid Roles and channels successfuly removed.
 msgstr Role a kanály úspěšně odebrány.
 
+msgid The judge's whistle
+msgstr Píšťalka rozhodčího
+
+msgid Word **{word}** was already used in last {limit} messages!
+msgstr Slovo **{word}** bylo již použito v posledních {limit} zprávách!
+
+msgid Previously used:
+msgstr Předchozí použití:
+
 msgid You must write message as parameter or upload TXT file.
 msgstr Musíš napsat zprávu jako parametr nebo nahrát TXT soubor.
 
