@@ -87,7 +87,7 @@ class Soccer(commands.Cog):
 
         word = self._get_word(message)
 
-        history = message.channel.history(limit=self.history_limit)
+        history = message.channel.history(limit=self.history_limit, oldest_first=True)
 
         async for history_message in history:
             if history_message.author.bot:
