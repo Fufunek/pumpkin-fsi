@@ -20,7 +20,6 @@ bot_log = logger.Bot.logger()
 class Soccer(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.soccer_channels = {}
         self.history_limit = 100
 
         self.soccer_channels = [935158870937071626]  # TODO REWORK
