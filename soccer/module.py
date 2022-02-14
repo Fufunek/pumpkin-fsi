@@ -23,8 +23,9 @@ class Soccer(commands.Cog):
         self.soccer_channels = {}
         self.history_limit = 100
 
-        self.soccer_channels[633740398174404608] = [935158870937071626]  # TODO REWORK
-        self.soccer_channels[900655969074311188] = [902954725023047720]  # DEBUG
+        self.soccer_channels = [935158870937071626]  # TODO REWORK
+        
+        self.ignored_threads = [939848150825447424]
 
         self.embed_cache = {}
 
@@ -165,14 +166,14 @@ class Soccer(commands.Cog):
     ) -> bool:
         if not isinstance(channel, nextcord.Thread):
             return False
-
+            
+        if channel.id in self.ignored_threads:
+            return False
+        
         if not channel.guild:
             return False
 
-        if channel.guild.id not in self.soccer_channels:
-            return False
-
-        if channel.parent.id not in self.soccer_channels[channel.guild.id]:
+        if channel.parent.id not in self.soccer_channels:
             return False
 
         return True
