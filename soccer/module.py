@@ -1,4 +1,5 @@
 from __future__ import annotations
+import re
 
 from typing import Union
 
@@ -17,6 +18,8 @@ config = database.config.Config.get()
 
 guild_log = logger.Guild.logger()
 bot_log = logger.Bot.logger()
+
+IGNORE_REGEX = r"^\*\**[^*]*\*\**"
 
 
 class Soccer(commands.Cog):
@@ -282,7 +285,7 @@ class Soccer(commands.Cog):
         return True
 
     def _get_word(self, message: nextcord.Message) -> str:
-        text = message.content
+        text = re.sub(IGNORE_REGEX, "", message.content)
         text = text.split()
 
         if len(text) < 1:
