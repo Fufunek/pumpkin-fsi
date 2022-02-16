@@ -172,7 +172,6 @@ class Soccer(commands.Cog):
 
             if word_before == word_after:
                 return
-        await self._delete_report(message)
         await self._check_message(after)
 
     @commands.Cog.listener()
@@ -260,9 +259,12 @@ class Soccer(commands.Cog):
         )
 
         embed.set_footer(text=f"{message.author.id} | {message.id}")
-
-        report = await message.reply(embed=embed)
-        self.embed_cache[message.id] = report
+        
+        if message.id not in self.embed_cache:
+            report = await message.reply(embed=embed)
+            self.embed_cache[message.id] = report
+        else:
+            self.embed_cache[message.id].edit(embed=embed)
 
     def _is_soccer_channel(
         self,
