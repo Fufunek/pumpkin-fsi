@@ -206,6 +206,7 @@ class Soccer(commands.Cog):
             history_word = self._get_word(history_message)
 
             if history_word == word:
+                await self._delete_repost(message)
                 await self._report_repost(message, history_message, word)
                 return
 
