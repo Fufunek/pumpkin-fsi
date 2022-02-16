@@ -172,7 +172,7 @@ class Soccer(commands.Cog):
 
             if word_before == word_after:
                 return
-
+        await self._delete_report(message)
         await self._check_message(after)
 
     @commands.Cog.listener()
@@ -206,7 +206,6 @@ class Soccer(commands.Cog):
             history_word = self._get_word(history_message)
 
             if history_word == word:
-                await self._delete_repost(message)
                 await self._report_repost(message, history_message, word)
                 return
 
