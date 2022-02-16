@@ -25,7 +25,7 @@ IGNORE_REGEX = r"^\*\**[^*]*\*\**"
 class Soccer(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.history_limit = 200
+        self.history_limit = 500
 
         self.embed_cache = {}
 
