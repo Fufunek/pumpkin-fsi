@@ -259,12 +259,12 @@ class Soccer(commands.Cog):
         )
 
         embed.set_footer(text=f"{message.author.id} | {message.id}")
-        
+
         if message.id not in self.embed_cache:
             report = await message.reply(embed=embed)
             self.embed_cache[message.id] = report
         else:
-            self.embed_cache[message.id].edit(embed=embed)
+            await self.embed_cache[message.id].edit(embed=embed)
 
     def _is_soccer_channel(
         self,
