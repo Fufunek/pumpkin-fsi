@@ -4,6 +4,12 @@ msgstr Uživatel přidal boost!
 msgid Member removed boost!
 msgstr Uživatel odebral boost!
 
+msgid Member name
+msgstr Jméno člena
+
+msgid New teacher!
+msgstr Nový učitel!
+
 msgid Item information
 msgstr Informace o položce
 
@@ -171,6 +177,30 @@ msgstr Něco se pokazilo.
 
 msgid Roles and channels successfuly removed.
 msgstr Role a kanály úspěšně odebrány.
+
+msgid Channel **{channel}** marked as word soccer.
+msgstr Kanál **{channel}** označen jako slovní fotbal.
+
+msgid Channel is not marked as word soccer!
+msgstr Kanál není označen jako slovní fotbal!
+
+msgid Channel **{channel}** unmarked as word soccer.
+msgstr Kanál **{channel}** odznačen jako slovní fotbal.
+
+msgid No channels found.
+msgstr Žádné kanály nenalezeny.
+
+msgid Thread **{thread}** will be ignored.
+msgstr Vlákno **{thread}** bude ignorováno.
+
+msgid Thread is not marked as ignored!
+msgstr Vlákno není označeno jako ignorované!
+
+msgid Thread **{thread}** is no more ignored.
+msgstr Vlákno **{thread}** již není ignorované.
+
+msgid No threads found.
+msgstr Žádné vlákna nenaleezena.
 
 msgid The judge's whistle
 msgstr Píšťalka rozhodčího
