@@ -84,7 +84,7 @@ class RoleAnnounce(commands.Cog):
             color=nextcord.Colour.gold() if boosted else nextcord.Colour.dark_gray(),
         )
 
-        embed.add_field(name=_(utx, "Member name"), value=after.display_name)
+        embed.add_field(name=_(utx, "Member name"), value=after.mention)
 
         avatar_url: str = after.display_avatar.replace(size=256).url
         embed.set_thumbnail(url=avatar_url)
@@ -101,7 +101,7 @@ class RoleAnnounce(commands.Cog):
             title=_(utx, "New teacher!"),
             color=nextcord.Colour.red(),
         )
-        embed.add_field(name=_(utx, "Member name"), value=after.display_name)
+        embed.add_field(name=_(utx, "Member name"), value=after.mention)
         avatar_url: str = after.display_avatar.replace(size=256).url
         embed.set_thumbnail(url=avatar_url)
 
