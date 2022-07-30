@@ -288,7 +288,7 @@ class RBViewUI(discord.ui.View):
                 await channel.set_permissions(member, read_messages=True)
             return True
         except (discord.Forbidden, discord.HTTPException) as ex:
-            guild_log.error(
+            await guild_log.error(
                 member,
                 member.guild,
                 "Exception occured during removing items in ReactionButtons.",
@@ -324,7 +324,7 @@ class RBViewUI(discord.ui.View):
                 await channel.set_permissions(member, overwrite=None)
             return True
         except (discord.Forbidden, discord.HTTPException) as ex:
-            guild_log.error(
+            await guild_log.error(
                 member,
                 member.guild,
                 "Exception occured during removing items in ReactionButtons.",
