@@ -77,6 +77,7 @@ class OptionDropdown(discord.ui.Select):
 
     async def callback(self, interaction: discord.Interaction):
         self.cache[(interaction.message.id, interaction.user.id)] = self.values[0]
+        await interaction.response.defer()
 
 
 class RBViewUI(discord.ui.View):
