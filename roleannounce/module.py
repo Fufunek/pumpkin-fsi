@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 from pie import i18n, logger, utils
 
@@ -23,7 +23,7 @@ class RoleAnnounce(commands.Cog):
         self.mute_role[633740398174404608] = 896832583906787419
 
     @commands.Cog.listener()
-    async def on_member_update(self, before: nextcord.Member, after: nextcord.Member):
+    async def on_member_update(self, before: discord.Member, after: discord.Member):
         was_boosting = self._is_boosting(before)
         is_boosting = self._is_boosting(after)
 
@@ -68,8 +68,8 @@ class RoleAnnounce(commands.Cog):
         await channel.send(embed=embed)
 
     async def _get_booster_embed(
-        self, before: nextcord.Member, after: nextcord.Member, boosted: bool
-    ) -> nextcord.Embed:
+        self, before: discord.Member, after: discord.Member, boosted: bool
+    ) -> discord.Embed:
 
         utx = i18n.TranslationContext(after.guild.id, None)
 
@@ -81,7 +81,7 @@ class RoleAnnounce(commands.Cog):
         embed = utils.discord.create_embed(
             author=self.bot.user,
             title=title,
-            color=nextcord.Colour.gold() if boosted else nextcord.Colour.dark_gray(),
+            color=discord.Colour.gold() if boosted else discord.Colour.dark_gray(),
         )
 
         embed.add_field(name=_(utx, "Member name"), value=after.mention)
@@ -92,14 +92,14 @@ class RoleAnnounce(commands.Cog):
         return embed
 
     async def _get_teacher_embed(
-        self, before: nextcord.Member, after: nextcord.Member
-    ) -> nextcord.Embed:
+        self, before: discord.Member, after: discord.Member
+    ) -> discord.Embed:
 
         utx = i18n.TranslationContext(after.guild.id, None)
         embed = utils.discord.create_embed(
             author=self.bot.user,
             title=_(utx, "New teacher!"),
-            color=nextcord.Colour.red(),
+            color=discord.Colour.red(),
         )
         embed.add_field(name=_(utx, "Member name"), value=after.mention)
         avatar_url: str = after.display_avatar.replace(size=256).url
@@ -107,7 +107,7 @@ class RoleAnnounce(commands.Cog):
 
         return embed
 
-    def _is_boosting(self, member: nextcord.Member) -> bool:
+    def _is_boosting(self, member: discord.Member) -> bool:
         for role in member.roles:
             if role.is_premium_subscriber():
                 return True
@@ -115,5 +115,5 @@ class RoleAnnounce(commands.Cog):
         return False
 
 
-def setup(bot) -> None:
-    bot.add_cog(RoleAnnounce(bot))
+async def setup(bot) -> None:
+    await bot.add_cog(RoleAnnounce(bot))

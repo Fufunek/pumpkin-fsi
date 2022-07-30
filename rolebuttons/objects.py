@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List, Tuple
 
-import nextcord
+import discord
 
 from pie import i18n, logger
 
@@ -19,7 +19,7 @@ _ = i18n.Translator("modules/fsi").translate
 guild_log = logger.Guild.logger()
 
 
-class OptionDropdown(nextcord.ui.Select):
+class OptionDropdown(discord.ui.Select):
     """Implementation of NextCord Select object used in RBView.
     It caches selected option for each combination of message and user,
     so it can be get from RBView and used to add / remove roles.
@@ -31,7 +31,7 @@ class OptionDropdown(nextcord.ui.Select):
     """
 
     def __init__(
-        self, bot: nextcord.Client, utx, custom_id: str, db_options: List[RBOption]
+        self, bot: discord.Client, utx, custom_id: str, db_options: List[RBOption]
     ):
         """Inits SelectOptions based on list of RBOption DB objects.
 
@@ -45,7 +45,7 @@ class OptionDropdown(nextcord.ui.Select):
         options = []
 
         for db_option in db_options:
-            option = nextcord.SelectOption(
+            option = discord.SelectOption(
                 label=db_option.label,
                 description=db_option.description,
                 emoji=rbutils.emoji_decode(bot, db_option.emoji)
@@ -75,11 +75,11 @@ class OptionDropdown(nextcord.ui.Select):
         """
         return self.cache.get(key, defval)
 
-    async def callback(self, interaction: nextcord.Interaction):
+    async def callback(self, interaction: discord.Interaction):
         self.cache[(interaction.message.id, interaction.user.id)] = self.values[0]
 
 
-class RBViewUI(nextcord.ui.View):
+class RBViewUI(discord.ui.View):
     """Persistant view used as UI for RoleButtons.
     There's only one RBView UI for one RBView DB object.
     Every instance is inicialized inside module and is
@@ -94,7 +94,7 @@ class RBViewUI(nextcord.ui.View):
         dropdown: OptionDropdown used for getting selected option
     """
 
-    def __init__(self, bot: nextcord.Client, view: RBView):
+    def __init__(self, bot: discord.Client, view: RBView):
         """Creates translation context based on guild settings.
         Then inits OptionDropdown with all options user can choose,
         and buttons for add / remove.
@@ -120,15 +120,15 @@ class RBViewUI(nextcord.ui.View):
 
         self.add_item(self.dropdown)
 
-        addBtn = nextcord.ui.Button(
+        addBtn = discord.ui.Button(
             label=_(self.utx, "Add"),
-            style=nextcord.ButtonStyle.green,
+            style=discord.ButtonStyle.green,
             custom_id="rb_view_{}:add".format(self.view.idx),
         )
 
-        removeBtn = nextcord.ui.Button(
+        removeBtn = discord.ui.Button(
             label=_(self.utx, "Remove"),
-            style=nextcord.ButtonStyle.red,
+            style=discord.ButtonStyle.red,
             custom_id="rb_view_{}:remove".format(self.view.idx),
         )
 
@@ -138,7 +138,7 @@ class RBViewUI(nextcord.ui.View):
         self.add_item(addBtn)
         self.add_item(removeBtn)
 
-    async def _check_restrict(self, interaction: nextcord.Interaction):
+    async def _check_restrict(self, interaction: discord.Interaction):
         """Checks if user has one of allowed roles (if there are any)
         or if does not have disallowed role.
 
@@ -153,7 +153,7 @@ class RBViewUI(nextcord.ui.View):
         Returns:
             :class:`bool`: True if user is allowed, False otherwise.
         """
-        if not isinstance(interaction.user, nextcord.Member):
+        if not isinstance(interaction.user, discord.Member):
             return False
 
         if not self.view.restrictions:
@@ -174,27 +174,27 @@ class RBViewUI(nextcord.ui.View):
 
         return True if is_allowed is None else is_allowed
 
-    async def add(self, interaction: nextcord.Interaction):
+    async def add(self, interaction: discord.Interaction):
         """Button handler (callback) of button 'Add'
         Args:
-            interaction: :class:`nextcord.Interaction` object
+            interaction: :class:`discord.Interaction` object
         """
         await self._process(interaction, add_items=True)
 
-    async def remove(self, interaction: nextcord.Interaction):
+    async def remove(self, interaction: discord.Interaction):
         """Button handler (callback) of button 'Remove'
         Args:
-            interaction: :class:`nextcord.Interaction` object
+            interaction: :class:`discord.Interaction` object
         """
         await self._process(interaction, add_items=False)
 
-    async def _process(self, interaction: nextcord.Interaction, add_items: bool):
+    async def _process(self, interaction: discord.Interaction, add_items: bool):
         """Internal function to process pressed button.
         Args:
-            interaction: :class:`nextcord.Interaction` object
+            interaction: :class:`discord.Interaction` object
             add_items: :class:`bool` True if add items, False if remove
         """
-        if not isinstance(interaction.user, nextcord.Member):
+        if not isinstance(interaction.user, discord.Member):
             return
 
         member = interaction.user
@@ -262,15 +262,15 @@ class RBViewUI(nextcord.ui.View):
 
     async def _add_items(
         self,
-        member: nextcord.Member,
-        roles: List[nextcord.Role],
-        channels: List[nextcord.abc.GuildChannel],
+        member: discord.Member,
+        roles: List[discord.Role],
+        channels: List[discord.abc.GuildChannel],
     ) -> bool:
         """Internal function to add roles and permissions.
         Args:
-            member: Affected :class:`nextcord.Member`
-            roles: List of :class:`nextcord.Role` to add
-            channels: List of :class:`nextcord.abc.GuildChannel` to add
+            member: Affected :class:`discord.Member`
+            roles: List of :class:`discord.Role` to add
+            channels: List of :class:`discord.abc.GuildChannel` to add
 
         Returns:
             True if no error, False if Exception was raised.
@@ -287,7 +287,7 @@ class RBViewUI(nextcord.ui.View):
                     continue
                 await channel.set_permissions(member, read_messages=True)
             return True
-        except (nextcord.Forbidden, nextcord.HTTPException) as ex:
+        except (discord.Forbidden, discord.HTTPException) as ex:
             guild_log.error(
                 member,
                 member.guild,
@@ -298,15 +298,15 @@ class RBViewUI(nextcord.ui.View):
 
     async def _remove_items(
         self,
-        member: nextcord.Member,
-        roles: List[nextcord.Role],
-        channels: List[nextcord.abc.GuildChannel],
+        member: discord.Member,
+        roles: List[discord.Role],
+        channels: List[discord.abc.GuildChannel],
     ) -> bool:
         """Internal function to remove roles and permissions.
         Args:
-            member: Affected :class:`nextcord.Member`
-            roles: List of :class:`nextcord.Role` to remove
-            channels: List of :class:`nextcord.abc.GuildChannel` to remove
+            member: Affected :class:`discord.Member`
+            roles: List of :class:`discord.Role` to remove
+            channels: List of :class:`discord.abc.GuildChannel` to remove
 
         Returns:
             True if no error, False if Exception was raised.
@@ -323,7 +323,7 @@ class RBViewUI(nextcord.ui.View):
                     continue
                 await channel.set_permissions(member, overwrite=None)
             return True
-        except (nextcord.Forbidden, nextcord.HTTPException) as ex:
+        except (discord.Forbidden, discord.HTTPException) as ex:
             guild_log.error(
                 member,
                 member.guild,

@@ -1,7 +1,7 @@
 from typing import List, Union, Optional
 
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 from pie import check, i18n, logger, utils
 
@@ -27,10 +27,10 @@ class Tagging(commands.Cog):
     async def tagging_set(
         self,
         ctx,
-        role: nextcord.Role,
+        role: discord.Role,
         same_role: bool,
         limit: int,
-        channel: nextcord.TextChannel = None,
+        channel: discord.TextChannel = None,
     ):
         channel_name = channel.name if channel is not None else _(ctx, "(GLOBAL)")
 
@@ -51,8 +51,8 @@ class Tagging(commands.Cog):
     async def tagging_unset(
         self,
         ctx,
-        role: nextcord.Role,
-        channel: nextcord.TextChannel = None,
+        role: discord.Role,
+        channel: discord.TextChannel = None,
     ):
         deleted = UserTag.unset(ctx.guild, role, channel)
 
@@ -71,7 +71,7 @@ class Tagging(commands.Cog):
     @check.acl2(check.ACLevel.MEMBER)
     @tagging_.command(name="list")
     async def tagging_list(
-        self, ctx, role: nextcord.Role = None, channel: nextcord.TextChannel = None
+        self, ctx, role: discord.Role = None, channel: discord.TextChannel = None
     ):
         query = UserTag.get_list(ctx.guild, role, channel)
 
@@ -113,11 +113,11 @@ class Tagging(commands.Cog):
     @commands.guild_only()
     @check.acl2(check.ACLevel.MEMBER)
     @commands.command(name="tag")
-    async def tag(self, ctx, role: Union[nextcord.Role, str], *, message: str):
+    async def tag(self, ctx, role: Union[discord.Role, str], *, message: str):
         await utils.discord.delete_message(ctx.message)
 
         if isinstance(role, str):
-            role_lookup = nextcord.utils.get(ctx.guild.roles, name=role)
+            role_lookup = discord.utils.get(ctx.guild.roles, name=role)
             if role_lookup is None:
                 await ctx.send(
                     _(ctx, "Role *{role}* not found!").format(
@@ -179,12 +179,12 @@ class Tagging(commands.Cog):
         else:
             await self._tag_role(ctx, role, message)
 
-    async def _tag_role(self, ctx: commands.Context, role: nextcord.Role, message: str):
+    async def _tag_role(self, ctx: commands.Context, role: discord.Role, message: str):
         await ctx.send(
             (
                 _(ctx, "**{user}** tagged {role} with this message:") + "\n\n{message}"
             ).format(user=ctx.author.display_name, role=role.mention, message=message),
-            allowed_mentions=nextcord.AllowedMentions(roles=True),
+            allowed_mentions=discord.AllowedMentions(roles=True),
         )
 
         await bot_log.debug(
@@ -196,7 +196,7 @@ class Tagging(commands.Cog):
         )
 
 
-class VoteView(nextcord.ui.View):
+class VoteView(discord.ui.View):
     """Class for making voting embeds easy.
     The right way of getting response is first calling send() on instance,
     then checking instance attribute `value`.
@@ -240,7 +240,7 @@ class VoteView(nextcord.ui.View):
     def __init__(
         self,
         ctx: commands.Context,
-        embed: nextcord.Embed,
+        embed: discord.Embed,
         limit: int,
         timeout: Union[int, float, None] = 300,
         delete: bool = True,
@@ -263,9 +263,9 @@ class VoteView(nextcord.ui.View):
             True if confirmed in time, None if timed out
         """
 
-        self.button = nextcord.ui.Button(
+        self.button = discord.ui.Button(
             label=_(self.ctx, "Yes") + " ({})".format(len(self.voted)),
-            style=nextcord.ButtonStyle.green,
+            style=discord.ButtonStyle.green,
             custom_id="yes-button",
         )
 
@@ -282,16 +282,16 @@ class VoteView(nextcord.ui.View):
                 try:
                     await self.message.delete()
                 except (
-                    nextcord.errors.HTTPException,
-                    nextcord.errors.Forbidden,
+                    discord.errors.HTTPException,
+                    discord.errors.Forbidden,
                 ):
                     self.clear_items()
                     await self.message.edit(embed=self.embed, view=self)
-            except nextcord.errors.NotFound:
+            except discord.errors.NotFound:
                 pass
         return self.value
 
-    async def interaction_check(self, interaction: nextcord.Interaction) -> None:
+    async def interaction_check(self, interaction: discord.Interaction) -> None:
         """Gets called when interaction with any of the Views buttons happens."""
         if interaction.user.id in self.voted:
             await interaction.response.send_message(
@@ -324,5 +324,5 @@ class TagDummy:
     pass
 
 
-def setup(bot) -> None:
-    bot.add_cog(Tagging(bot))
+async def setup(bot) -> None:
+    await bot.add_cog(Tagging(bot))

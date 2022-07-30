@@ -3,10 +3,10 @@ import re
 
 from typing import Union
 
-import nextcord
+import discord
 
-from nextcord import TextChannel, Thread, DMChannel, GroupChannel, PartialMessageable
-from nextcord.ext import commands
+from discord import TextChannel, Thread, DMChannel, GroupChannel, PartialMessageable
+from discord.ext import commands
 
 from pie import logger, i18n, utils, database, check
 
@@ -44,7 +44,7 @@ class Soccer(commands.Cog):
 
     @check.acl2(check.ACLevel.SUBMOD)
     @soccer_channel_.group(name="add")
-    async def soccer_channel_add(self, ctx, channel: nextcord.TextChannel):
+    async def soccer_channel_add(self, ctx, channel: discord.TextChannel):
         """Mark channel as word soccer channel."""
         SoccerChannel.add(channel.guild.id, channel.id)
         await ctx.reply(
@@ -55,7 +55,7 @@ class Soccer(commands.Cog):
 
     @check.acl2(check.ACLevel.SUBMOD)
     @soccer_channel_.group(name="remove")
-    async def soccer_channel_remove(self, ctx, channel: nextcord.TextChannel):
+    async def soccer_channel_remove(self, ctx, channel: discord.TextChannel):
         """Unmark channel as word soccer channel."""
         db_channel = SoccerChannel.get(channel.guild.id, channel.id)
 
@@ -98,7 +98,7 @@ class Soccer(commands.Cog):
 
     @check.acl2(check.ACLevel.SUBMOD)
     @soccer_ignored_.group(name="add")
-    async def soccer_ignored_add(self, ctx, thread: nextcord.Thread):
+    async def soccer_ignored_add(self, ctx, thread: discord.Thread):
         """Mark thread as ignored by word soccer judge."""
         SoccerIgnored.add(thread.guild.id, thread.id)
         await ctx.reply(
@@ -107,7 +107,7 @@ class Soccer(commands.Cog):
 
     @check.acl2(check.ACLevel.SUBMOD)
     @soccer_ignored_.group(name="remove")
-    async def soccer_ignored_remove(self, ctx, thread: nextcord.Thread):
+    async def soccer_ignored_remove(self, ctx, thread: discord.Thread):
         """Unmark thread as ignored by word soccer judge."""
         db_thread = SoccerIgnored.get(thread.guild.id, thread.id)
 
@@ -151,7 +151,7 @@ class Soccer(commands.Cog):
         await self._check_message(message)
 
     @commands.Cog.listener()
-    async def on_raw_message_edit(self, payload: nextcord.RawMessageUpdateEvent):
+    async def on_raw_message_edit(self, payload: discord.RawMessageUpdateEvent):
         before = payload.cached_message
         after = await utils.discord.get_message(
             self.bot, payload.guild_id, payload.channel_id, payload.message_id
@@ -175,7 +175,7 @@ class Soccer(commands.Cog):
         await self._check_message(after)
 
     @commands.Cog.listener()
-    async def on_message_delete(self, message: nextcord.Message):
+    async def on_message_delete(self, message: discord.Message):
         if message.author.bot:
             return
 
@@ -184,7 +184,7 @@ class Soccer(commands.Cog):
 
         await self._delete_report(message)
 
-    async def _check_message(self, message: nextcord.Message):
+    async def _check_message(self, message: discord.Message):
         if not len(message.content):
             return
 
@@ -215,7 +215,7 @@ class Soccer(commands.Cog):
             message = self.embed_cache[message.id]
             try:
                 await message.delete()
-            except nextcord.errors.HTTPException:
+            except discord.errors.HTTPException:
                 pass
 
             self.embed_cache.pop(message.id)
@@ -234,20 +234,20 @@ class Soccer(commands.Cog):
 
             try:
                 await report.delete()
-            except nextcord.errors.HTTPException:
+            except discord.errors.HTTPException:
                 pass
 
             return
 
     async def _report_repost(
-        self, message: nextcord.Message, history_message: nextcord.Message, word: str
+        self, message: discord.Message, history_message: discord.Message, word: str
     ):
         gtx = i18n.TranslationContext(message.guild.id, message.author.id)
 
         embed = utils.discord.create_embed(
             author=message.author,
             title=_(gtx, "The judge's whistle"),
-            color=nextcord.Colour.yellow(),
+            color=discord.Colour.yellow(),
             description=_(
                 gtx, "Word **{word}** was already used in last {limit} messages!"
             ).format(word=word, limit=self.history_limit),
@@ -272,7 +272,7 @@ class Soccer(commands.Cog):
             TextChannel, Thread, DMChannel, GroupChannel, PartialMessageable
         ],
     ) -> bool:
-        if not isinstance(channel, nextcord.Thread):
+        if not isinstance(channel, discord.Thread):
             return False
 
         if SoccerIgnored.exists(channel.guild.id, channel.id):
@@ -286,7 +286,7 @@ class Soccer(commands.Cog):
 
         return True
 
-    def _get_word(self, message: nextcord.Message) -> str:
+    def _get_word(self, message: discord.Message) -> str:
         text = re.sub(IGNORE_REGEX, "", message.content)
         text = text.split()
 
@@ -300,5 +300,5 @@ class Soccer(commands.Cog):
         return text.lower()
 
 
-def setup(bot) -> None:
-    bot.add_cog(Soccer(bot))
+async def setup(bot) -> None:
+    await bot.add_cog(Soccer(bot))

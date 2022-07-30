@@ -2,8 +2,8 @@ import tempfile
 
 from typing import Union
 
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 from pie import i18n, logger, utils, check
 
@@ -51,7 +51,7 @@ class Sudo(commands.Cog):
     async def sudo_message_send(
         self,
         ctx,
-        channel: Union[nextcord.TextChannel, nextcord.Thread],
+        channel: Union[discord.TextChannel, discord.Thread],
         *,
         message: str = None
     ):
@@ -167,7 +167,7 @@ class Sudo(commands.Cog):
         file.seek(0)
         await ctx.reply(
             _(ctx, "Message exported to TXT."),
-            file=nextcord.File(fp=file, filename=filename),
+            file=discord.File(fp=file, filename=filename),
         )
         file.close()
 
@@ -229,5 +229,5 @@ class Sudo(commands.Cog):
         )
 
 
-def setup(bot) -> None:
-    bot.add_cog(Sudo(bot))
+async def setup(bot) -> None:
+    await bot.add_cog(Sudo(bot))

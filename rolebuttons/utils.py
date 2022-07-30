@@ -2,7 +2,7 @@ import re
 
 from typing import Optional, Union, List, Tuple
 
-import nextcord
+import discord
 
 from pie import i18n, logger
 
@@ -17,7 +17,7 @@ guild_log = logger.Guild.logger()
 class RBUtils:
     @staticmethod
     def emoji_encode(
-        bot: nextcord.Client, emoji: Union[nextcord.PartialEmoji, str]
+        bot: discord.Client, emoji: Union[discord.PartialEmoji, str]
     ) -> Optional[str]:
         """Gets emoji and translate it to str.
 
@@ -28,7 +28,7 @@ class RBUtils:
 
 
         Args:
-            bot: :class:`nextcord.Client` used to search for Emoji
+            bot: :class:`discord.Client` used to search for Emoji
             emoji: UTF-8 emoji, Discord emoji or :emoji_name: for lookup
 
         Returns:
@@ -36,13 +36,13 @@ class RBUtils:
 
         """
         retval: str
-        if isinstance(emoji, nextcord.PartialEmoji):
-            found_emoji = nextcord.utils.get(bot.emojis, id=emoji.id)
+        if isinstance(emoji, discord.PartialEmoji):
+            found_emoji = discord.utils.get(bot.emojis, id=emoji.id)
             if not found_emoji:
                 return None
             return str(found_emoji.id)
         elif re.match(EMOJI_REGEX, emoji):
-            found_emoji = nextcord.utils.get(bot.emojis, name=emoji.replace(":", ""))
+            found_emoji = discord.utils.get(bot.emojis, name=emoji.replace(":", ""))
             if not found_emoji:
                 return None
             return str(found_emoji.id)
@@ -51,14 +51,14 @@ class RBUtils:
 
     @staticmethod
     def emoji_decode(
-        bot: nextcord.Client,
+        bot: discord.Client,
         emoji: str,
-    ) -> Optional[Union[str, nextcord.Emoji, nextcord.PartialEmoji]]:
+    ) -> Optional[Union[str, discord.Emoji, discord.PartialEmoji]]:
         """If emoji is ID, it tries to look it up in bot's emoji DB.
         Otherwise it returns the emoji untouched as string.
 
         Args:
-            bot: :class:`nextcord.Client` used to search for Emoji
+            bot: :class:`discord.Client` used to search for Emoji
             emoji: UTF-8 emoji or emoji's ID
 
         Returns:
@@ -71,7 +71,7 @@ class RBUtils:
         if not emoji.isdigit():
             return emoji
 
-        found_emoji = nextcord.utils.get(bot.emojis, id=int(emoji))
+        found_emoji = discord.utils.get(bot.emojis, id=int(emoji))
         if found_emoji:
             return found_emoji
         else:
@@ -79,8 +79,8 @@ class RBUtils:
 
     @staticmethod
     async def process_items(
-        items: List[RBItem], guild: nextcord.Guild
-    ) -> Tuple[nextcord.Role, nextcord.abc.GuildChannel]:
+        items: List[RBItem], guild: discord.Guild
+    ) -> Tuple[discord.Role, discord.abc.GuildChannel]:
         """Internal function to convert List of RBItem DB objects
         to Discord roles and channels.
         Args:
@@ -107,7 +107,7 @@ class RBUtils:
                 roles.append(role)
             else:
                 channel = guild.get_channel(item.discord_id)
-                if not channel or not isinstance(channel, nextcord.abc.GuildChannel):
+                if not channel or not isinstance(channel, discord.abc.GuildChannel):
                     await guild_log.error(
                         None,
                         guild,

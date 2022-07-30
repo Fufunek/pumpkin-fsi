@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands, tasks
+import discord
+from discord.ext import commands, tasks
 
 from typing import Dict, List, Optional, Union
 
@@ -77,7 +77,7 @@ class RoleButtons(commands.Cog):
 
     async def _get_item_embed(
         self, ctx, option: RBOption, item: RBItem
-    ) -> nextcord.Embed:
+    ) -> discord.Embed:
         """Create information embed for item.
 
         Args:
@@ -85,7 +85,7 @@ class RoleButtons(commands.Cog):
             option: Item's parent DB object.
             item: RBItem for information
 
-        Returns: :class:`nextcord.Embed` information embed
+        Returns: :class:`discord.Embed` information embed
         """
         embed = utils.discord.create_embed(
             author=ctx.author, title=_(ctx, "Item information")
@@ -109,14 +109,14 @@ class RoleButtons(commands.Cog):
 
         return embed
 
-    async def _get_view_embed(self, ctx, view) -> nextcord.Embed:
+    async def _get_view_embed(self, ctx, view) -> discord.Embed:
         """Create information embed for View.
 
         Args:
             ctx: Command context
             view: View DB object.
 
-        Returns: :class:`nextcord.Embed` information embed
+        Returns: :class:`discord.Embed` information embed
         """
 
         embed = utils.discord.create_embed(
@@ -170,14 +170,14 @@ class RoleButtons(commands.Cog):
 
         return embed
 
-    async def _get_option_embed(self, ctx, option) -> nextcord.Embed:
+    async def _get_option_embed(self, ctx, option) -> discord.Embed:
         """Create information embed for option.
 
         Args:
             ctx: Command context
             option: Item's parent DB object.
 
-        Returns: :class:`nextcord.Embed` information embed
+        Returns: :class:`discord.Embed` information embed
         """
         embed = utils.discord.create_embed(
             author=ctx.author, title=_(ctx, "Option informations")
@@ -224,7 +224,7 @@ class RoleButtons(commands.Cog):
             ctx: Command context
             view: View DB object
 
-        Returns: :class:`nextcord.Embed` information embed
+        Returns: :class:`discord.Embed` information embed
         """
         roles = {}
         roles[RestrictionType.ALLOW] = []
@@ -277,7 +277,7 @@ class RoleButtons(commands.Cog):
                     items.append(role.mention)
             else:
                 channel = ctx.guild.get_channel(item.discord_id)
-                if not channel or not isinstance(channel, nextcord.abc.GuildChannel):
+                if not channel or not isinstance(channel, discord.abc.GuildChannel):
                     items.append("(\\#{id})".format(id=item.discord_id))
                 else:
                     items.append(channel.mention)
@@ -437,7 +437,7 @@ class RoleButtons(commands.Cog):
         ctx,
         view_id: int,
         label: str,
-        emoji: Optional[Union[nextcord.PartialEmoji, str]],
+        emoji: Optional[Union[discord.PartialEmoji, str]],
         *,
         description: Optional[str] = None,
     ):
@@ -500,7 +500,7 @@ class RoleButtons(commands.Cog):
         ctx,
         option_id: int,
         label: str,
-        emoji: Optional[Union[nextcord.PartialEmoji, str]],
+        emoji: Optional[Union[discord.PartialEmoji, str]],
         *,
         description: Optional[str] = None,
     ):
@@ -572,7 +572,7 @@ class RoleButtons(commands.Cog):
         self,
         ctx,
         option_id: int,
-        dc_item: Union[nextcord.Role, nextcord.abc.GuildChannel],
+        dc_item: Union[discord.Role, discord.abc.GuildChannel],
     ):
         """Add role or channel to option.
 
@@ -591,7 +591,7 @@ class RoleButtons(commands.Cog):
 
         type = (
             DiscordType.ROLE
-            if isinstance(dc_item, nextcord.Role)
+            if isinstance(dc_item, discord.Role)
             else DiscordType.CHANNEL
         )
 
@@ -613,7 +613,7 @@ class RoleButtons(commands.Cog):
     @check.acl2(check.ACLevel.MOD)
     @rolebuttons_restriction_.command(name="add")
     async def rolebuttons_restriction_add(
-        self, ctx, view_id: int, role: nextcord.Role, type: str
+        self, ctx, view_id: int, role: discord.Role, type: str
     ):
         """Add role restriction to View.
 
@@ -647,7 +647,7 @@ class RoleButtons(commands.Cog):
     @check.acl2(check.ACLevel.MOD)
     @rolebuttons_restriction_.command(name="remove")
     async def rolebuttons_restriction_remove(
-        self, ctx, view_id: int, role: Union[nextcord.Role, int]
+        self, ctx, view_id: int, role: Union[discord.Role, int]
     ):
         """Remove role restriction
 
@@ -725,7 +725,7 @@ class RoleButtons(commands.Cog):
         self,
         ctx,
         option_id: int,
-        dc_item: Union[nextcord.Role, nextcord.abc.GuildChannel, int],
+        dc_item: Union[discord.Role, discord.abc.GuildChannel, int],
     ):
         """Delete Option's items. Has to be confirmed."""
         option = RBOption.get(ctx.guild, option_id)
@@ -736,11 +736,11 @@ class RoleButtons(commands.Cog):
             return
 
         if isinstance(dc_item, int):  # THIS SHOULD BE MOVED INTO CORE -> UTILS
-            role = nextcord.utils.get(ctx.guild.roles, id=dc_item)
+            role = discord.utils.get(ctx.guild.roles, id=dc_item)
             if role:
                 dc_item = role
             else:
-                channel = nextcord.utils.get(ctx.guild.channels, id=dc_item)
+                channel = discord.utils.get(ctx.guild.channels, id=dc_item)
                 if channel is not None:
                     dc_item = channel
 
@@ -904,5 +904,5 @@ class ItemDummy:
     pass
 
 
-def setup(bot) -> None:
-    bot.add_cog(RoleButtons(bot))
+async def setup(bot) -> None:
+    await bot.add_cog(RoleButtons(bot))

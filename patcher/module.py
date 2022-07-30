@@ -2,7 +2,7 @@ import datetime
 import hashlib
 import inspect
 
-from nextcord.ext import commands, tasks
+from discord.ext import commands, tasks
 
 from pie import logger, utils
 
@@ -71,5 +71,5 @@ class Patcher(commands.Cog):
         return timestamp.strftime("%d-%m-%Y %H:%M:%S")
 
 
-def setup(bot) -> None:
-    bot.add_cog(Patcher(bot))
+async def setup(bot) -> None:
+    await bot.add_cog(Patcher(bot))

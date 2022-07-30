@@ -1,7 +1,7 @@
 import re
 
-import nextcord
-from nextcord.ext import commands, tasks
+import discord
+from discord.ext import commands, tasks
 
 from pie import i18n, logger, utils, check
 
@@ -37,7 +37,7 @@ class FSI(commands.Cog):
     async def on_message(self, message):
         """User interactions"""
         # Ignore DMs
-        if not isinstance(message.channel, nextcord.TextChannel):
+        if not isinstance(message.channel, discord.TextChannel):
             return
 
         if re.match(FISH_REGEX, message.content, flags=re.IGNORECASE):
@@ -87,5 +87,5 @@ class FSI(commands.Cog):
             self.fish_cache -= 1
 
 
-def setup(bot) -> None:
-    bot.add_cog(FSI(bot))
+async def setup(bot) -> None:
+    await bot.add_cog(FSI(bot))

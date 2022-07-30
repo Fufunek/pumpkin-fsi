@@ -3,7 +3,7 @@ from __future__ import annotations
 import enum
 from typing import List, Optional
 
-import nextcord
+import discord
 
 from sqlalchemy import BigInteger, Column, Integer, Boolean, Enum, String, ForeignKey
 from sqlalchemy.orm import relationship
@@ -121,7 +121,7 @@ class RBView(database.base):
     options = relationship(lambda: RBOption, cascade="all, delete")
 
     @staticmethod
-    def get_all(guild: nextcord.Guild = None) -> List[RBView]:
+    def get_all(guild: discord.Guild = None) -> List[RBView]:
         query = session.query(RBView)
 
         if guild is not None:
@@ -130,7 +130,7 @@ class RBView(database.base):
         return query.all()
 
     @staticmethod
-    def create(guild: nextcord.Guild, unique: bool) -> Optional[RBView]:
+    def create(guild: discord.Guild, unique: bool) -> Optional[RBView]:
         view = RBView(guild_id=guild.id, unique=unique)
         session.add(view)
         session.commit()
@@ -138,12 +138,12 @@ class RBView(database.base):
         return view
 
     @staticmethod
-    def get(guild: nextcord.Guild, id: int) -> Optional[RBView]:
+    def get(guild: discord.Guild, id: int) -> Optional[RBView]:
         query = session.query(RBView).filter_by(idx=id, guild_id=guild.id)
 
         return query.one_or_none()
 
-    def add_message(self, message: nextcord.Message):
+    def add_message(self, message: discord.Message):
         check = [check for check in self.messages if check.message_id == message.id]
 
         if check:
@@ -155,7 +155,7 @@ class RBView(database.base):
         self.messages.append(rbmessage)
         session.commit()
 
-    def add_restriction(self, role: nextcord.Role, type: RestrictionType):
+    def add_restriction(self, role: discord.Role, type: RestrictionType):
         restriction = (
             session.query(RBRestriction)
             .filter_by(view_id=self.idx, role_id=role.id)
@@ -232,7 +232,7 @@ class RBOption(database.base):
     items = relationship(lambda: RBItem, cascade="all, delete")
     rbview = relationship(lambda: RBView, back_populates="options")
 
-    def get(guild: nextcord.Guild, option_id: int) -> Optional[RBItem]:
+    def get(guild: discord.Guild, option_id: int) -> Optional[RBItem]:
         query = session.query(RBOption).filter_by(idx=option_id).one_or_none()
 
         if query is not None and query.rbview.guild_id != guild.id:

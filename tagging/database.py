@@ -6,7 +6,7 @@ from sqlalchemy import BigInteger, Column, Integer, Boolean, or_
 
 from pie.database import database, session
 
-import nextcord
+import discord
 
 
 class UserTag(database.base):
@@ -32,9 +32,9 @@ class UserTag(database.base):
 
     @staticmethod
     def set(
-        guild: nextcord.Guild,
-        role: nextcord.Role,
-        channel: nextcord.TextChannel,
+        guild: discord.Guild,
+        role: discord.Role,
+        channel: discord.TextChannel,
         same_role: bool,
         limit: Integer,
     ) -> UserTag:
@@ -67,7 +67,7 @@ class UserTag(database.base):
 
     @staticmethod
     def unset(
-        guild: nextcord.Guild, role: nextcord.Role, channel: nextcord.TextChannel
+        guild: discord.Guild, role: discord.Role, channel: discord.TextChannel
     ) -> int:
         query = (
             session.query(UserTag)
@@ -83,7 +83,7 @@ class UserTag(database.base):
 
     @staticmethod
     def get_exact(
-        guild: nextcord.guild, role: nextcord.Role, channel: nextcord.TextChannel
+        guild: discord.guild, role: discord.Role, channel: discord.TextChannel
     ) -> Optional[UserTag]:
         query = (
             session.query(UserTag)
