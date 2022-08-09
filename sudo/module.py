@@ -121,7 +121,7 @@ class Sudo(commands.Cog):
             await ctx.reply(_(ctx, "Message must be shorter than 2000 characters."))
             return
 
-        await dc_message.edit(message)
+        await dc_message.edit(content=message)
         await utils.discord.delete_message(ctx.message)
         await ctx.send(
             _(ctx, "Your message {id} in channel {channel} was edited.").format(
@@ -212,7 +212,7 @@ class Sudo(commands.Cog):
             await ctx.reply(_(ctx, "Message must be shorter than 2000 characters."))
             return
 
-        await dc_message.edit(message)
+        await dc_message.edit(content=message)
         await utils.discord.delete_message(ctx.message)
         await ctx.send(
             _(ctx, "Your message {id} in channel {channel} was edited.").format(

@@ -37,7 +37,7 @@ class RoleAnnounce(commands.Cog):
             was_muted = before.get_role(self.mute_role[before.guild.id]) is not None
             if was_muted:
                 return
-            
+
             was_teacher = (
                 before.get_role(self.teacher_role[before.guild.id]) is not None
             )
