@@ -121,6 +121,10 @@ class Sudo(commands.Cog):
             await ctx.reply(_(ctx, "Message must be shorter than 2000 characters."))
             return
 
+        if dc_message is None:
+            await ctx.reply(_(ctx, "Message does not exist."))
+            return
+
         await dc_message.edit(content=message)
         await utils.discord.delete_message(ctx.message)
         await ctx.send(
