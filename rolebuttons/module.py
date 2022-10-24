@@ -361,7 +361,7 @@ class RoleButtons(commands.Cog):
                 view_ui.stop()
             view.delete()
             view.save()
-            await ctx.send(_(ctx, "View ID {id} deleted.").format(id=id))
+            await ctx.send(_(ctx, "View ID {id} deleted.").format(id=view_id))
         else:
             await ctx.send(_(ctx, "Deleting aborted."))
 
