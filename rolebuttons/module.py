@@ -350,8 +350,8 @@ class RoleButtons(commands.Cog):
         embed = await self._get_view_embed(ctx, view)
         embed.title = _(ctx, "Do you want to delete this view?")
 
-        view = ConfirmView(ctx, embed)
-        value = await view.send()
+        c_view = ConfirmView(ctx, embed)
+        value = await c_view.send()
 
         if value is None:
             await ctx.send(_(ctx, "Deleting timed out."))
