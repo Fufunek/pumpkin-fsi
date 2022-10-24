@@ -356,7 +356,7 @@ class RoleButtons(commands.Cog):
         if value is None:
             await ctx.send(_(ctx, "Deleting timed out."))
         elif value:
-            view_ui = self.views.pop(view.id, None)
+            view_ui = self.views.pop(view.idx, None)
             if view_ui is not None:
                 view_ui.stop()
             view.delete()
