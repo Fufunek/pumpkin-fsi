@@ -9,8 +9,6 @@ from pie import logger, utils
 guild_log = logger.Guild.logger()
 bot_log = logger.Bot.logger()
 
-ADD_ACL = ["gn", "selfunverify"]
-
 
 class Patcher(commands.Cog):
     def __init__(self, bot: commands.Bot):
