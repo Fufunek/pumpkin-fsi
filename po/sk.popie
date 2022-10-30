@@ -181,22 +181,19 @@ msgstr
 msgid Members with forbidden role
 msgstr
 
+msgid No member with this role
+msgstr
+
 msgid REMOVE ROLE FROM MEMBERS
 msgstr
 
 msgid Are you sure you want from users with role: {role_base} remove role: {role_remove}?
 msgstr
 
-msgid Confirmation timed out.
-msgstr
-
 msgid Successfully removed selected role.
 msgstr
 
 msgid Aborted.
-msgstr
-
-msgid No member with this role
 msgstr
 
 msgid Channel **{channel}** marked as word soccer.
