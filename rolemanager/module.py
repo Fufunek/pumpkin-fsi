@@ -67,7 +67,12 @@ class RoleManager(commands.Cog):
         if member_list:
             title = _(ctx, "Members with forbidden role")
 
-            name_list = list(member.mention for member in member_list)
+            name_list = list(
+                "{name} ({mention})".format(
+                    name=member.display_name, mention=member.mention
+                )
+                for member in member_list
+            )
 
             embeds = RoleManager._create_embeds(
                 ctx=ctx,
