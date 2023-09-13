@@ -70,7 +70,6 @@ class RoleAnnounce(commands.Cog):
     async def _get_booster_embed(
         self, before: discord.Member, after: discord.Member, boosted: bool
     ) -> discord.Embed:
-
         utx = i18n.TranslationContext(after.guild.id, None)
 
         title = (
@@ -94,7 +93,6 @@ class RoleAnnounce(commands.Cog):
     async def _get_teacher_embed(
         self, before: discord.Member, after: discord.Member
     ) -> discord.Embed:
-
         utx = i18n.TranslationContext(after.guild.id, None)
         embed = utils.discord.create_embed(
             author=self.bot.user,

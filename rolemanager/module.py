@@ -26,7 +26,6 @@ class RoleManager(commands.Cog):
         chunk_size = 15
 
         for i in range(0, len(description), chunk_size):
-
             page = utils.discord.create_embed(
                 author=ctx.author,
                 title=title,

@@ -35,7 +35,6 @@ class RBUtils:
         :class:`str` ID of emoji, UTF-8 emoji or None if emoji not in bot's DB.
 
         """
-        retval: str
         if isinstance(emoji, discord.PartialEmoji):
             found_emoji = discord.utils.get(bot.emojis, id=emoji.id)
             if not found_emoji:

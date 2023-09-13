@@ -72,7 +72,12 @@ class Sudo(commands.Cog):
             await ctx.reply(_(ctx, "Message must be shorter than 2000 characters."))
             return
 
-        message = await channel.send(message)
+        message = await channel.send(
+            message,
+            allowed_mentions=discord.AllowedMentions(
+                everyone=True, users=True, roles=True
+            ),
+        )
 
         await utils.discord.delete_message(ctx.message)
         await ctx.send(
@@ -125,7 +130,12 @@ class Sudo(commands.Cog):
             await ctx.reply(_(ctx, "Message does not exist."))
             return
 
-        await dc_message.edit(content=message)
+        await dc_message.edit(
+            content=message,
+            allowed_mentions=discord.AllowedMentions(
+                everyone=True, users=True, roles=True
+            ),
+        )
         await utils.discord.delete_message(ctx.message)
         await ctx.send(
             _(ctx, "Your message {id} in channel {channel} was edited.").format(
